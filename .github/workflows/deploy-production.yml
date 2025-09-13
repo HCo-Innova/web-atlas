@@ -1,5 +1,14 @@
 # 🚀 GitHub Actions Workflow - ATLAS Agro Industrial
-# Deploy React SPA to AWS S3 + CloudFront
+# Deploy      - name: 🔧 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm' to AWS S3 + CloudFront
 #
 # Triggers:
 # - Push to main branch (automatic)
