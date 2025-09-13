@@ -17,17 +17,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/**'
-      - 'public/**'
-      - 'index.html'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'pnpm-lock.yaml'
-      - 'vite.config.ts'
-      - 'tsconfig.json'
-      - 'tailwind.config.js'
-      - 'postcss.config.js'
+  
+  # Automatic trigger on tags (releases)
+  push:
+    tags:
+      - 'v*.*.*'
 
   # Manual trigger
   workflow_dispatch:
