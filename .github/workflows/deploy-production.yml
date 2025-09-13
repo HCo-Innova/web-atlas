@@ -13,13 +13,10 @@
 name: 🚀 Deploy to AWS Production
 
 on:
-  # Automatic trigger on push to main
+  # Automatic trigger on push to main and tags (releases)
   push:
     branches:
       - main
-  
-  # Automatic trigger on tags (releases)
-  push:
     tags:
       - 'v*.*.*'
 
@@ -66,19 +63,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: 'pnpm'
 
-      - name: 📥 Install Dependencies
+      - name: � Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: �📥 Install Dependencies
         run: |
-          npm ci --prefer-offline --no-audit
+          pnpm install --frozen-lockfile
 
       - name: 🔍 Run Linting
         run: |
-          npm run lint
+          pnpm run lint
 
       - name: 🧪 Run Type Checking
         run: |
-          npx tsc --noEmit
+          pnpm exec tsc --noEmit
 
       # Note: Add test script when tests are implemented
       # - name: 🧪 Run Tests
@@ -89,7 +91,7 @@ jobs:
 
       - name: 🏗️ Build Application
         run: |
-          npm run build
+          pnpm run build
         env:
           NODE_ENV: production
 
