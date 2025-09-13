@@ -1,0 +1,193 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "close": "Close",
+    "open": "Open",
+    "next": "Next",
+    "previous": "Previous",
+    "back": "Back",
+    "continue": "Continue",
+    "finish": "Finish"
+  },
+  "navigation": {
+    "inicio": "Home",
+    "nosotros": "About Us",
+    "calidad": "Quality",
+    "proceso": "Process",
+    "productos": "Products",
+    "contacto": "Contact"
+  },
+  "header": {
+    "logo": "ATLAS Agro Industrial",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "selectLanguage": "Select language"
+  },
+  "languages": {
+    "es": "Español",
+    "en": "English"
+  },
+  "hero": {
+    "title": "Leaders in Seeds & Grains: From Our Fields to the World",
+    "subtitle": "We specialize in the production, processing, and commercialization of high-quality chia and sesame, while empowering small-scale producers.",
+    "cta_button": "Discover Our Products"
+  },
+  "about": {
+    "title": "About Us",
+    "content": "We are a leading company in the production and commercialization of agricultural and agro-industrial products, with a clear focus on quality, innovation, and sustainability. Our philosophy is based on creating shared value, from our fields to our clients worldwide.",
+    "mission": {
+      "title": "Mission",
+      "text": "To satisfy the needs of our consumers and improve the standard of living of our customers by offering quality products, through the production, transformation, and export of agricultural and agro-industrial products. At the same time, we contribute to the development of our collaborators, suppliers, distributors, and the country.",
+      "description": "To satisfy the needs of our consumers and improve the standard of living of our customers by offering quality products, through the production, transformation, and export of agricultural and agro-industrial products. At the same time, we contribute to the development of our collaborators, suppliers, distributors, and the country."
+    },
+    "vision": {
+      "title": "Vision",
+      "text": "To be a leading producer and marketer in the national and international market, characterized by compliance with quality standards, constant innovation of our processes, and protection of the environment, while maintaining a high vocation of service, honesty, teamwork, and responsibility.",
+      "description": "To be a leading producer and marketer in the national and international market, characterized by compliance with quality standards, constant innovation of our processes, and protection of the environment, while maintaining a high vocation of service, honesty, teamwork, and responsibility."
+    },
+    "values": {
+      "title": "Our Values",
+      "items": [
+        {
+          "name": "Honesty",
+          "description": "We act with transparency, achieving greater trust with our clients, collaborators, and the community."
+        },
+        {
+          "name": "Commitment",
+          "description": "We are committed to the environment and our surroundings for the generation of work and sustainability, working daily for continuous improvement."
+        },
+        {
+          "name": "Generosity",
+          "description": "We provide our wealth in the best way, using the company's resources in a rational manner."
+        },
+        {
+          "name": "Innovation",
+          "description": "We are known for working in a different, unique, and incomparable way, daring to do things that no one has done before."
+        }
+      ],
+      "honesty": "Honesty",
+      "commitment": "Commitment",
+      "generosity": "Generosity",
+      "innovation": "Innovation"
+    }
+  },
+  "products": {
+    "title": "Our Products",
+    "intro": "We offer a specialized selection of the highest quality grains and seeds, cultivated with care and processed under the strictest standards for the global market.",
+    "products_list": [
+      {
+        "name": "Chia",
+        "description": "Regarded as a superfood, our chia is an exceptional source of fiber, antioxidants, and Omega-3 fatty acids. Perfect for a healthy and balanced diet."
+      },
+      {
+        "name": "Sesame",
+        "description": "Sesame seeds selected for their purity, flavor, and high nutritional value. Ideal for the food industry, baking, and premium quality oils."
+      }
+    ],
+    "availability_note": "All our products are available in organic and/or conventional versions to meet the specific needs of your market."
+  },
+  "process": {
+    "title": "Process & Operations",
+    "intro": "Our strategic presence throughout the territory allows us to efficiently manage the entire value chain, from cultivation in our production centers to final processing in our specialized facilities.",
+    "production_centers": {
+      "title": "Production Centers",
+      "locations": [
+        "Presidente Hayes",
+        "San Pedro",
+        "Concepción",
+        "Canindeyu",
+        "Alto Paraná",
+        "Itapúa"
+      ]
+    },
+    "facilities": {
+      "title": "Collection & Processing",
+      "collection_center": {
+        "name": "Collection Center",
+        "location": "Our collection center is located in San Pedro, at Km 175 of the Elizardo Aquino Route."
+      },
+      "processing_center": {
+        "name": "Processing Plant",
+        "location": "Processing is carried out at the Shirosawa Company S.A.I.C. facilities, located at Km 172 of the Elizardo Aquino Route in San Pedro."
+      }
+    }
+  },
+  "quality": {
+    "title": "Quality & Certifications",
+    "description": "Committed to the highest quality standards and international certifications.",
+    "intro": "Our commitment to excellence is absolute. We comply with the highest international standards for quality and food safety at every stage of our process.",
+    "quality_points": [
+      {
+        "name": "European Laboratory Analysis",
+        "description": "All our multi-residual, pesticide, and herbicide analyses are performed in a laboratory in Europe to ensure maximum rigor."
+      },
+      {
+        "name": "Ozone Treatment",
+        "description": "All of our products are ozonated, a process that ensures their purity and quality without added chemicals."
+      },
+      {
+        "name": "Strategic Certification",
+        "description": "We work directly with the CITEC Certifier for sampling and the certification of our loads and products."
+      },
+      {
+        "name": "Certified Plants",
+        "description": "The plants where our processes are carried out are ORGANIC, HACCP, and ISO certified."
+      },
+      {
+        "name": "International Organic Certifications",
+        "description": "We are currently in the process of obtaining organic certifications for the European and United States markets."
+      }
+    ],
+    "certifications": {
+      "title": "Certifications",
+      "organic": "Organic Certification",
+      "haccp": "HACCP",
+      "iso": "ISO",
+      "europe": "Europe",
+      "usa": "United States"
+    },
+    "testing": {
+      "title": "Quality Analysis",
+      "description": "We perform pesticide and herbicide analysis in certified European laboratories.",
+      "ozone": "Use of ozone in all our products to guarantee maximum quality."
+    },
+    "partner": {
+      "title": "Certification Partner",
+      "name": "CITEC",
+      "description": "We collaborate with CITEC to maintain our certification standards."
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Get in touch with us for more information about our products and services.",
+    "intro": "We are here to answer your questions. Contact us to learn more about our products and business opportunities.",
+    "contact_details": [
+      { "type": "email", "value": "gfontanetti@gmail.com" },
+      { "type": "email", "value": "giufonbo@gmail.com" },
+      { "type": "phone", "value": "+595 993 382169" },
+      { "type": "phone", "value": "+595 981 863685" }
+    ],
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "send": "Send Message"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  }
+}

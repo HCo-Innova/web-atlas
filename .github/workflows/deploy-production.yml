@@ -1,0 +1,312 @@
+# 🚀 GitHub Actions Workflow - ATLAS Agro Industrial
+# Deploy React SPA to AWS S3 + CloudFront
+#
+# Triggers:
+# - Push to main branch (automatic)
+# - Manual workflow dispatch (manual)
+#
+# Requirements:
+# - AWS_ACCESS_KEY_ID (GitHub Secret)
+# - AWS_SECRET_ACCESS_KEY (GitHub Secret)
+# - AWS_REGION (GitHub Secret) = "sa-east-1"
+
+name: 🚀 Deploy to AWS Production
+
+on:
+  # Automatic trigger on push to main
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'pnpm-lock.yaml'
+      - 'vite.config.ts'
+      - 'tsconfig.json'
+      - 'tailwind.config.js'
+      - 'postcss.config.js'
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      skip_build:
+        description: 'Skip build process (use cached build)'
+        required: false
+        default: false
+        type: boolean
+      skip_invalidation:
+        description: 'Skip CloudFront cache invalidation'
+        required: false
+        default: false
+        type: boolean
+      environment:
+        description: 'Environment to deploy to'
+        required: false
+        default: 'production'
+        type: choice
+        options:
+          - production
+
+# Environment variables
+env:
+  NODE_VERSION: '18'
+  AWS_REGION: 'sa-east-1'
+
+jobs:
+  # Job 1: Build React Application
+  build:
+    name: 🏗️ Build React App
+    runs-on: ubuntu-latest
+    if: github.event.inputs.skip_build != 'true'
+    
+    steps:
+      - name: 📁 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📥 Install Dependencies
+        run: |
+          npm ci --prefer-offline --no-audit
+
+      - name: 🔍 Run Linting
+        run: |
+          npm run lint
+
+      - name: 🧪 Run Type Checking
+        run: |
+          npx tsc --noEmit
+
+      # Note: Add test script when tests are implemented
+      # - name: 🧪 Run Tests
+      #   run: |
+      #     npm run test
+      #   env:
+      #     CI: true
+
+      - name: 🏗️ Build Application
+        run: |
+          npm run build
+        env:
+          NODE_ENV: production
+
+      - name: 📊 Analyze Bundle Size
+        run: |
+          echo "📊 Build analysis:"
+          du -sh dist/
+          find dist/ -name "*.js" -o -name "*.css" | head -5
+        continue-on-error: true
+
+      - name: 📤 Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: dist/
+          retention-days: 7
+
+      - name: 📋 Build Summary
+        run: |
+          echo "## 🏗️ Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ✅ Success" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node Version**: ${{ env.NODE_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Size**: $(du -sh dist/ | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Files Count**: $(find dist/ -type f | wc -l)" >> $GITHUB_STEP_SUMMARY
+
+  # Job 2: Deploy to AWS
+  deploy:
+    name: 🚀 Deploy to AWS
+    runs-on: ubuntu-latest
+    needs: build
+    if: always() && (needs.build.result == 'success' || github.event.inputs.skip_build == 'true')
+    
+    steps:
+      - name: 📁 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 📥 Download Build Artifacts
+        if: github.event.inputs.skip_build != 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
+          path: dist/
+
+      - name: ⚙️ Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: 🔍 Verify AWS Configuration
+        run: |
+          aws sts get-caller-identity
+          echo "✅ AWS credentials configured successfully"
+
+      - name: 📦 Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.5.0'
+          terraform_wrapper: false
+
+      - name: 🔧 Get Infrastructure Info
+        id: terraform
+        run: |
+          cd terraform
+          terraform init -input=false
+          
+          # Get outputs
+          S3_BUCKET=$(terraform output -raw s3_bucket_name)
+          CLOUDFRONT_ID=$(terraform output -raw cloudfront_distribution_id)
+          WEBSITE_URL=$(terraform output -raw website_url)
+          
+          # Set outputs for next steps
+          echo "s3_bucket=$S3_BUCKET" >> $GITHUB_OUTPUT
+          echo "cloudfront_id=$CLOUDFRONT_ID" >> $GITHUB_OUTPUT
+          echo "website_url=$WEBSITE_URL" >> $GITHUB_OUTPUT
+          
+          echo "✅ Infrastructure info retrieved:"
+          echo "   S3 Bucket: $S3_BUCKET"
+          echo "   CloudFront ID: $CLOUDFRONT_ID"
+          echo "   Website URL: $WEBSITE_URL"
+
+      - name: 🗂️ Verify Build Files
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build directory not found"
+            exit 1
+          fi
+          
+          if [ ! -f "dist/index.html" ]; then
+            echo "❌ index.html not found in build"
+            exit 1
+          fi
+          
+          echo "✅ Build files verified:"
+          echo "   Total size: $(du -sh dist/ | cut -f1)"
+          echo "   File count: $(find dist/ -type f | wc -l)"
+          
+          # List key files
+          echo "📋 Key files:"
+          find dist/ -name "*.html" -o -name "*.js" -o -name "*.css" | head -10
+
+      - name: ☁️ Deploy to S3
+        run: |
+          echo "🚀 Deploying to S3 bucket: ${{ steps.terraform.outputs.s3_bucket }}"
+          
+          # Sync static assets with long cache
+          aws s3 sync dist/ s3://${{ steps.terraform.outputs.s3_bucket }}/ \
+            --region ${{ env.AWS_REGION }} \
+            --delete \
+            --exclude "*.html" \
+            --exclude "*.map" \
+            --exclude "service-worker.js" \
+            --cache-control "public, max-age=31536000, immutable" \
+            --metadata-directive REPLACE
+          
+          # Sync HTML files with short cache
+          aws s3 sync dist/ s3://${{ steps.terraform.outputs.s3_bucket }}/ \
+            --region ${{ env.AWS_REGION }} \
+            --exclude "*" \
+            --include "*.html" \
+            --include "service-worker.js" \
+            --cache-control "public, max-age=300" \
+            --metadata-directive REPLACE
+          
+          echo "✅ Files deployed to S3"
+
+      - name: 🔄 Invalidate CloudFront Cache
+        if: github.event.inputs.skip_invalidation != 'true'
+        id: invalidation
+        run: |
+          echo "🔄 Creating CloudFront invalidation..."
+          
+          INVALIDATION_ID=$(aws cloudfront create-invalidation \
+            --distribution-id ${{ steps.terraform.outputs.cloudfront_id }} \
+            --paths "/*" \
+            --query 'Invalidation.Id' \
+            --output text)
+          
+          echo "invalidation_id=$INVALIDATION_ID" >> $GITHUB_OUTPUT
+          echo "✅ CloudFront invalidation created: $INVALIDATION_ID"
+
+      - name: ⏳ Wait for Invalidation
+        if: github.event.inputs.skip_invalidation != 'true'
+        run: |
+          echo "⏳ Waiting for CloudFront invalidation to complete..."
+          
+          aws cloudfront wait invalidation-completed \
+            --distribution-id ${{ steps.terraform.outputs.cloudfront_id }} \
+            --id ${{ steps.invalidation.outputs.invalidation_id }}
+          
+          echo "✅ CloudFront invalidation completed"
+
+      - name: 🧪 Test Deployment
+        run: |
+          echo "🧪 Testing deployed website..."
+          
+          # Test website response
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" ${{ steps.terraform.outputs.website_url }})
+          
+          if [ "$RESPONSE" = "200" ]; then
+            echo "✅ Website is responding correctly (HTTP $RESPONSE)"
+          else
+            echo "❌ Website test failed (HTTP $RESPONSE)"
+            exit 1
+          fi
+
+      - name: 📋 Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Resource | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Website URL** | [${{ steps.terraform.outputs.website_url }}](${{ steps.terraform.outputs.website_url }}) |" >> $GITHUB_STEP_SUMMARY
+          echo "| **S3 Bucket** | \`${{ steps.terraform.outputs.s3_bucket }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **CloudFront ID** | \`${{ steps.terraform.outputs.cloudfront_id }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **AWS Region** | \`${{ env.AWS_REGION }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Deployed By** | @${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Deployment Time** | $(date -u '+%Y-%m-%d %H:%M:%S UTC') |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Build Info" >> $GITHUB_STEP_SUMMARY
+          echo "- **Files Deployed**: $(find dist/ -type f | wc -l)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Size**: $(du -sh dist/ | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Cache Invalidated**: ${{ github.event.inputs.skip_invalidation != 'true' && '✅ Yes' || '⏭️ Skipped' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **The website is now live and accessible globally via CloudFront CDN!**"
+
+  # Job 3: Cleanup (optional)
+  cleanup:
+    name: 🧹 Cleanup
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: always()
+    
+    steps:
+      - name: 🗑️ Cleanup Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: deployment-artifacts
+          pattern: build-*
+          delete-merged: true
+        continue-on-error: true
+
+      - name: 📝 Final Status
+        run: |
+          if [ "${{ needs.deploy.result }}" = "success" ]; then
+            echo "🎉 Deployment completed successfully!"
+          else
+            echo "❌ Deployment failed. Check logs above."
+            exit 1
+          fi

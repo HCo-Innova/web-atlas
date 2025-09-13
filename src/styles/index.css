@@ -1,0 +1,316 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Importar fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* Estilos base para el sistema de diseño ATLAS Agro */
+@layer base {
+  html {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Evitar desbordes horizontales por elementos fijos */
+    height: 100%;
+    /* Asegura que el fondo del viewport coincida con el de la app (evita franja blanca al sobre-desplazar) */
+    @apply bg-background dark:bg-background-dark;
+  }
+
+  body {
+    /* Usar el color de fondo de la app para evitar la franja blanca en el overscroll */
+    @apply bg-background dark:bg-background-dark text-text-primary transition-colors duration-300;
+    overflow-x: hidden; /* Salvaguarda adicional */
+    min-height: 100%;
+    margin: 0;
+  }
+
+  /* Configuración de fuentes según el sistema de diseño */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    @apply text-text-primary;
+  }
+
+  h1 {
+    @apply text-hero-mobile sm:text-hero-tablet lg:text-hero-desktop;
+  }
+
+  h2 {
+    @apply text-section-mobile sm:text-section-tablet lg:text-section-desktop;
+  }
+
+  h3 {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  h4 {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  h5 {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+
+  h6 {
+    @apply text-base sm:text-lg lg:text-xl;
+  }
+
+  p {
+    @apply text-base leading-relaxed text-text-secondary;
+  }
+
+  /* Estilos para enlaces */
+  a {
+    @apply text-accent hover:text-accent-dark transition-colors duration-200;
+  }
+
+  /* Estilos para botones base */
+  button {
+    @apply transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary;
+  }
+
+  /* Estilos para inputs base */
+  input, textarea, select {
+    @apply transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+  }
+
+  /* Scrollbar personalizado */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-secondary;
+  }
+
+  /* Modo oscuro */
+  .dark ::-webkit-scrollbar-track {
+    @apply bg-background-dark;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-border-dark;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-secondary;
+  }
+}
+
+/* Componentes del sistema de diseño */
+@layer components {
+  /* Botón primario */
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+  }
+
+  /* Botón secundario */
+  .btn-secondary {
+    @apply border-2 border-primary text-primary px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+  }
+
+  /* Botón de texto */
+  .btn-text {
+    @apply text-primary hover:text-primary/80 font-medium focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+  }
+
+  /* Tarjeta base */
+  .card {
+    @apply bg-surface border border-border rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300;
+  }
+
+  .card-elevated {
+    @apply bg-surface border border-border rounded-xl shadow-elevated;
+  }
+
+  /* Contenedor principal optimizado para mobile-first */
+  .container-main {
+    @apply max-w-7xl mx-auto px-mobile-padding sm:px-tablet-padding lg:px-desktop-padding;
+  }
+
+  /* Sección con padding consistente mobile-first */
+  .section {
+    @apply py-mobile-section sm:py-tablet-section lg:py-desktop-section;
+  }
+
+  /* Contenedor de sección con padding interno */
+  .section-container {
+    @apply px-mobile-padding sm:px-tablet-padding lg:px-desktop-padding;
+  }
+
+  /* Grid de 12 columnas */
+  .grid-12 {
+    @apply grid grid-cols-12 gap-4 md:gap-6 lg:gap-8;
+  }
+
+  /* Espaciado consistente */
+  .space-section {
+    @apply space-y-8 md:space-y-12 lg:space-y-16;
+  }
+
+  /* Texto centrado */
+  .text-center-section {
+    @apply text-center max-w-3xl mx-auto;
+  }
+
+  /* Gradiente de fondo sutil */
+  .bg-gradient-subtle {
+    background: linear-gradient(135deg, theme('colors.background') 0%, theme('colors.surface') 100%);
+  }
+
+  .dark .bg-gradient-subtle {
+    background: linear-gradient(135deg, theme('colors.background.dark') 0%, theme('colors.surface.dark') 100%);
+  }
+}
+
+/* Utilidades personalizadas */
+@layer utilities {
+  /* Animaciones de entrada */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  /* Efectos de hover */
+  .hover-lift {
+    @apply hover:-translate-y-1 transition-transform duration-200;
+  }
+
+  .hover-glow {
+    @apply hover:shadow-lg hover:shadow-primary/25 transition-shadow duration-200;
+  }
+
+  /* Texto con gradiente */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  /* Bordes con gradiente */
+  .border-gradient {
+    @apply border-2 border-transparent bg-gradient-to-r from-primary to-accent bg-clip-border;
+  }
+
+  /* Focus visible para accesibilidad */
+  .focus-visible {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  /* Estados de carga */
+  .loading {
+    @apply animate-pulse;
+  }
+
+  /* Ocultar scrollbar pero mantener funcionalidad */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Utilidades específicas para mobile-first */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+
+  .tablet-up {
+    @apply hidden sm:block;
+  }
+
+  .desktop-up {
+    @apply hidden lg:block;
+  }
+
+  .mobile-tablet {
+    @apply block lg:hidden;
+  }
+
+  /* Grid responsive optimizado para mobile */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8;
+  }
+
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8;
+  }
+
+  .grid-responsive-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8;
+  }
+
+  /* Texto responsive */
+  .text-responsive {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  .text-responsive-lg {
+    @apply text-base sm:text-lg lg:text-xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+
+  /* Botones responsive */
+  .btn-responsive {
+    @apply w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3;
+  }
+
+  /* Cards responsive */
+  .card-responsive {
+    @apply w-full sm:w-auto;
+  }
+
+  /* Espaciado responsive */
+  .space-responsive {
+    @apply space-y-4 sm:space-y-6 lg:space-y-8;
+  }
+
+  .space-responsive-x {
+    @apply space-x-4 sm:space-x-6 lg:space-x-8;
+  }
+
+  /* Padding responsive */
+  .p-responsive {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+
+  .px-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .py-responsive {
+    @apply py-4 sm:py-6 lg:py-8;
+  }
+
+  /* Margin responsive */
+  .m-responsive {
+    @apply m-4 sm:m-6 lg:m-8;
+  }
+
+  .mx-responsive {
+    @apply mx-4 sm:mx-6 lg:mx-8;
+  }
+
+  .my-responsive {
+    @apply my-4 sm:my-6 lg:my-8;
+  }
+}

@@ -1,0 +1,51 @@
+services:
+  # Servicio de desarrollo con hot reload
+  atlas-dev:
+    container_name: atlas-container-dev
+    image: atlas-container-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"  # Puerto de Vite dev server
+      - "80:80"      # Puerto HTTP para Caddy
+      - "443:443"    # Puerto HTTPS para Caddy
+    volumes:
+      # Montar código fuente para hot reload
+      - .:/app
+      # Excluir node_modules del host
+      - /app/node_modules
+      # Montar configuración de Caddy
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    environment:
+      - NODE_ENV=development
+      - VITE_HMR_PORT=5173
+    networks:
+      - atlas-network
+    command: >
+      sh -c "
+        # Iniciar Caddy en background
+        caddy start --config /etc/caddy/Caddyfile --adapter caddyfile &&
+        # Iniciar Vite dev server
+        pnpm run dev -- --host 0.0.0.0
+      "
+
+  # Servicio de producción (opcional, para testing)
+  atlas-prod:
+    container_name: atlas-container-prod
+    image: atlas-container-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+      - "8443:443"
+    networks:
+      - atlas-network
+    profiles:
+      - production
+
+networks:
+  atlas-network:
+    name: atlas-network
+    driver: bridge

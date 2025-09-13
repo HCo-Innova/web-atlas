@@ -1,0 +1,44 @@
+# Caddyfile para SPA React + Vite
+# Desarrollo: HTTP + HTTPS auto-firmado
+# Producción: HTTPS con certificados AWS ACM
+
+:80 {
+    # Redirección automática a HTTPS en producción
+    redir https://{host}{uri} permanent
+}
+
+:443 {
+    # Directorio raíz
+    root * /srv
+    file_server
+
+    # Fallback para SPA - todas las rutas van a index.html
+    try_files {path} /index.html
+
+    # Compresión automática
+    encode gzip
+
+    # Cache para assets estáticos
+    @static {
+        path *.js *.css *.png *.jpg *.jpeg *.gif *.ico *.svg *.woff *.woff2 *.ttf *.eot
+    }
+    header @static Cache-Control "public, max-age=31536000, immutable"
+
+    # Headers de seguridad
+    header {
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    }
+
+    # TLS automático (Let's Encrypt en producción, auto-firmado en desarrollo)
+    tls internal
+
+    # Logs
+    log {
+        output stdout
+        format console
+    }
+}

@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+.pnpm-debug.log*
+.yarn-integrity
+
+# Production build
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/*.tfplan
+
+# AWS
+github-actions-policy.json
+
+# Docker
+.dockerignore
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# CSS
+*.css.map
+
+# Cache
+.cache/

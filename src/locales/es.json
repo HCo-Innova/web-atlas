@@ -1,0 +1,193 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "back": "Atrás",
+    "continue": "Continuar",
+    "finish": "Finalizar"
+  },
+  "navigation": {
+    "inicio": "Inicio",
+    "nosotros": "Nosotros",
+    "calidad": "Calidad",
+    "proceso": "Proceso",
+    "productos": "Productos",
+    "contacto": "Contacto"
+  },
+  "header": {
+    "logo": "ATLAS Agro Industrial",
+    "menu": "Menú",
+    "closeMenu": "Cerrar menú",
+    "selectLanguage": "Seleccionar idioma"
+  },
+  "languages": {
+    "es": "Español",
+    "en": "English"
+  },
+  "hero": {
+    "title": "Líderes en Granos y Semillas: Del Campo al Mundo",
+    "subtitle": "Nos especializamos en la producción, procesamiento y comercialización de chía y sésamo de alta calidad, impulsando el desarrollo de pequeños productores.",
+    "cta_button": "Descubre Nuestros Productos"
+  },
+  "about": {
+    "title": "Sobre Nosotros",
+    "content": "Somos una empresa líder en la producción y comercialización de productos agrícolas y agroindustriales, con un claro enfoque en la calidad, la innovación y la sostenibilidad. Nuestra filosofía se basa en crear valor compartido, desde nuestros campos hasta nuestros clientes en todo el mundo.",
+    "mission": {
+      "title": "Misión",
+      "text": "Satisfacer las necesidades de nuestros consumidores y mejorar el nivel de vida de nuestros clientes ofreciendo productos de calidad, mediante la producción, transformación y exportación de productos agrícolas y agroindustriales. A la vez, contribuir con el desarrollo de nuestros colaboradores, proveedores, distribuidores y país.",
+      "description": "Satisfacer las necesidades de nuestros consumidores y mejorar el nivel de vida de nuestros clientes ofreciendo productos de calidad, mediante la producción, transformación y exportación de productos agrícolas y agroindustriales. A la vez, contribuir con el desarrollo de nuestros colaboradores, proveedores, distribuidores y país."
+    },
+    "vision": {
+      "title": "Visión",
+      "text": "Ser una empresa productora y comercializadora líder en el mercado nacional e internacional, que se caracterice por el cumplimiento de estándares de calidad, la innovación constante de nuestros procesos y la protección del medio ambiente, manteniendo la alta vocación de servicio, honestidad, trabajo en equipo y responsabilidad.",
+      "description": "Ser una empresa productora y comercializadora líder en el mercado nacional e internacional, que se caracterice por el cumplimiento de estándares de calidad, la innovación constante de nuestros procesos y la protección del medio ambiente, manteniendo la alta vocación de servicio, honestidad, trabajo en equipo y responsabilidad."
+    },
+    "values": {
+      "title": "Nuestros Valores",
+      "items": [
+        {
+          "name": "Honestidad",
+          "description": "Actuamos con transparencia, ganando una mayor confianza con nuestros clientes, colaboradores y comunidad."
+        },
+        {
+          "name": "Compromiso",
+          "description": "Estamos comprometidos con el medio ambiente y nuestro entorno para la generación de trabajo y sostenibilidad, trabajando a diario para el mejoramiento continuo."
+        },
+        {
+          "name": "Generosidad",
+          "description": "Brindamos de la mejor manera nuestras riquezas, usando de manera racional los recursos de la empresa."
+        },
+        {
+          "name": "Innovación",
+          "description": "Nos caracterizamos por trabajar de una manera diferente, única e inigualable, atreviéndonos a hacer cosas que nadie ha hecho antes."
+        }
+      ],
+      "honesty": "Honestidad",
+      "commitment": "Compromiso",
+      "generosity": "Generosidad",
+      "innovation": "Innovación"
+    }
+  },
+  "products": {
+    "title": "Nuestros Productos",
+    "intro": "Ofrecemos una selección especializada de granos y semillas de la más alta calidad, cultivados con esmero y procesados bajo los más estrictos estándares para el mercado global.",
+    "products_list": [
+      {
+        "name": "Chía",
+        "description": "Considerada un superalimento, nuestra chía es una fuente excepcional de fibra, antioxidantes y ácidos grasos Omega-3. Perfecta para una dieta saludable y equilibrada."
+      },
+      {
+        "name": "Sésamo",
+        "description": "Granos de sésamo seleccionados por su pureza, sabor y alto valor nutricional. Ideal para la industria alimentaria, panificación y aceites de primera calidad."
+      }
+    ],
+    "availability_note": "Todos nuestros productos están disponibles en versiones orgánicas y/o convencionales para satisfacer las necesidades específicas de su mercado."
+  },
+  "process": {
+    "title": "Proceso y Operaciones",
+    "intro": "Nuestra presencia estratégica a lo largo del territorio nos permite gestionar eficientemente toda la cadena de valor, desde el cultivo en nuestros centros de producción hasta el procesamiento final en nuestras instalaciones especializadas.",
+    "production_centers": {
+      "title": "Centros de Producción",
+      "locations": [
+        "Presidente Hayes",
+        "San Pedro",
+        "Concepción",
+        "Canindeyu",
+        "Alto Paraná",
+        "Itapúa"
+      ]
+    },
+    "facilities": {
+      "title": "Acopio y Procesamiento",
+      "collection_center": {
+        "name": "Centro de Acopio",
+        "location": "Nuestro centro de acopio está ubicado en San Pedro, en el Km 175 de la Ruta Elizardo Aquino."
+      },
+      "processing_center": {
+        "name": "Planta de Procesamiento",
+        "location": "El procesamiento se realiza en las instalaciones de Shirosawa Company S.A.I.C., situadas en el Km 172 de la Ruta Elizardo Aquino, San Pedro."
+      }
+    }
+  },
+  "quality": {
+    "title": "Calidad y Certificaciones",
+    "description": "Comprometidos con los más altos estándares de calidad y certificaciones internacionales.",
+    "intro": "Nuestro compromiso con la excelencia es absoluto. Cumplimos con los más altos estándares internacionales de calidad y seguridad alimentaria en cada etapa de nuestro proceso.",
+    "quality_points": [
+      {
+        "name": "Análisis en Laboratorios Europeos",
+        "description": "Todos nuestros análisis multi-residuales, de pesticidas y herbicidas se realizan en un laboratorio en Europa para garantizar la máxima rigurosidad."
+      },
+      {
+        "name": "Tratamiento con Ozono",
+        "description": "Todos nuestros productos son ozonizados, un proceso que asegura su pureza y calidad sin químicos añadidos."
+      },
+      {
+        "name": "Certificación Estratégica",
+        "description": "Trabajamos directamente con la certificadora CITEC para el muestreo y la certificación de nuestras cargas y productos."
+      },
+      {
+        "name": "Plantas Certificadas",
+        "description": "Las plantas donde se realizan nuestros procesos cuentan con certificaciones ORGÁNICAS, HACCP e ISO."
+      },
+      {
+        "name": "Certificaciones Orgánicas Internacionales",
+        "description": "Actualmente, nos encontramos en proceso de obtener las certificaciones orgánicas para ingresar a los mercados de Europa y Estados Unidos."
+      }
+    ],
+    "certifications": {
+      "title": "Certificaciones",
+      "organic": "Certificación Orgánica",
+      "haccp": "HACCP",
+      "iso": "ISO",
+      "europe": "Europa",
+      "usa": "Estados Unidos"
+    },
+    "testing": {
+      "title": "Análisis de Calidad",
+      "description": "Realizamos análisis de pesticidas y herbicidas en laboratorios europeos certificados.",
+      "ozone": "Uso de ozono en todos nuestros productos para garantizar la máxima calidad."
+    },
+    "partner": {
+      "title": "Socio Certificador",
+      "name": "CITEC",
+      "description": "Colaboramos con CITEC para mantener nuestros estándares de certificación."
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "Ponte en contacto con nosotros para más información sobre nuestros productos y servicios.",
+    "intro": "Estamos aquí para responder a sus preguntas. Contáctenos para conocer más sobre nuestros productos y oportunidades de negocio.",
+    "contact_details": [
+      { "type": "email", "value": "gfontanetti@gmail.com" },
+      { "type": "email", "value": "giufonbo@gmail.com" },
+      { "type": "phone", "value": "+595 993 382169" },
+      { "type": "phone", "value": "+595 981 863685" }
+    ],
+    "email": "Correo Electrónico",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "message": "Mensaje",
+      "send": "Enviar Mensaje"
+    }
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Uso"
+  }
+}
