@@ -5,36 +5,42 @@ import { Products } from './Products';
 import { Process } from './Process';
 import { Quality } from './Quality';
 import { Contact } from './Contact';
+import { Footer } from './Footer';
 import { ScrollIndicator } from './ScrollIndicator';
 
 export function DesignSystemDemo() {
   return (
-  <div className="min-h-screen bg-background dark:bg-background-dark transition-colors duration-300">
+  <div className="min-h-screen bg-background dark:bg-background-dark transition-colors duration-300 flex flex-col">
       {/* Header principal */}
       <Header />
 
     {/* Indicador de scroll global (visible excepto en Contacto) */}
     <ScrollIndicator />
 
-  {/* Hero Section */}
-  <Hero />
+  {/* Main content */}
+  <main className="flex-1">
+    {/* Hero Section */}
+    <Hero />
 
-  {/* About Section */}
-  <About />
+    {/* About Section */}
+    <About />
 
-  {/* Products Section */}
-  <Products />
+    {/* Products Section */}
+    <Products />
 
-  {/* Process & Operations Section */}
-  <Process />
+    {/* Process & Operations Section */}
+    <Process />
 
-  {/* Quality & Certifications Section */}
-  <Quality />
+    {/* Quality & Certifications Section */}
+    <Quality />
 
-  {/* Contact Section */}
-  <Contact />
+    {/* Contact Section */}
+    <Contact />
+  </main>
 
-      {/* Contenido real arriba: Hero, About, Products, Process, Quality, Contact */}
+  {/* Footer - siempre al final */}
+  <Footer />
+
     </div>
   );
 }

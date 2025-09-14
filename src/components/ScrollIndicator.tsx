@@ -19,11 +19,11 @@ export function ScrollIndicator() {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        // Ocultar cuando Contacto esté visible (al menos 10% en pantalla)
+        // Ocultar cuando Contacto esté visible (al menos 20% en pantalla)
         setVisible(!entry.isIntersecting);
       },
       {
-        threshold: 0.1,
+        threshold: 0.2,
       }
     );
 

@@ -1,6 +1,11 @@
 import { cn } from './design-system';
 
 /**
+ * Re-export cn utility for convenience
+ */
+export { cn };
+
+/**
  * Estilos comunes reutilizables para aplicar DRY
  * Centraliza todas las clases repetitivas del sistema
  */

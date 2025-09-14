@@ -28,7 +28,9 @@
     "logo": "ATLAS Agro Industrial",
     "menu": "Menu",
     "closeMenu": "Close menu",
-    "selectLanguage": "Select language"
+    "selectLanguage": "Select language",
+    "mainNavigation": "Main navigation",
+    "mobileNavigation": "Mobile navigation menu"
   },
   "languages": {
     "es": "Español",

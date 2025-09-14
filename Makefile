@@ -28,7 +28,7 @@ install: ## Instalar dependencias en el contenedor
 
 dev: ## Iniciar servidor de desarrollo
 	@echo "$(GREEN)Iniciando contenedor de desarrollo...$(NC)"
-	docker-compose up atlas-dev
+	docker-compose up atlas-dev -d
 
 build: ## Compilar proyecto para producción en el contenedor
 	@echo "$(GREEN)Compilando proyecto para producción en el contenedor...$(NC)"

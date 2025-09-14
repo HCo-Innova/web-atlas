@@ -65,7 +65,7 @@ export function Header({ className }: HeaderProps) {
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary dark:text-primary-dark">
                 ATLAS
               </h1>
-              <span className="inline text-xs sm:text-lg lg:text-xl text-text-secondary dark:text-text-secondary-dark font-semibold truncate max-w-[52vw] sm:max-w-none">
+              <span className="inline text-sm sm:text-lg lg:text-xl text-text-secondary dark:text-text-secondary-dark font-semibold truncate max-w-[52vw] sm:max-w-none">
                 Agro Industrial S.A.
               </span>
             </Link>
@@ -77,7 +77,7 @@ export function Header({ className }: HeaderProps) {
             <Navigation variant="desktop" />
 
             {/* Right side controls */}
-            <div className="flex items-center space-x-0.5 sm:space-x-1">
+            <div className="flex items-center space-x-0 sm:space-x-1">
               {/* Language Selector */}
               <LanguageSelector compact className="flex" />
 
@@ -88,11 +88,11 @@ export function Header({ className }: HeaderProps) {
               <button
                 onClick={toggleMobileMenu}
                 className={cn(
-                  'md:hidden flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11',
+                  'md:hidden flex items-center justify-center h-9 w-9 sm:h-11 sm:w-11',
                   interactiveButtonStyles,
                   'text-text-primary dark:text-text-primary-dark',
                   SIZES.button.sm,
-                  'p-1.5 sm:px-2 sm:py-2'
+                  'p-1 sm:px-2 sm:py-2'
                 )}
                 aria-label={isMobileMenuOpen ? t('header.closeMenu') : t('header.menu')}
                 aria-expanded={isMobileMenuOpen}
