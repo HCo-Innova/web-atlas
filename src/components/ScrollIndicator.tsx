@@ -3,31 +3,37 @@ import { cn } from '../lib/design-system';
 
 /**
  * ScrollIndicator: Icono fijo que sugiere navegación/scroll.
- * Visible en toda la página y se oculta únicamente cuando la sección #contacto
- * entra en el viewport (o si no existe la sección, permanece visible siempre).
+ * Visible en toda la página y se oculta cuando la sección #contacto o #footer
+ * entran en el viewport (o si no existen las secciones, permanece visible siempre).
  */
 export function ScrollIndicator() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const contact = document.getElementById('contacto');
-    if (!contact) {
+    const footer = document.getElementById('footer');
+    
+    // Si no existen las secciones, mantener visible
+    if (!contact && !footer) {
       setVisible(true);
       return;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0];
-        // Ocultar cuando Contacto esté visible (al menos 20% en pantalla)
-        setVisible(!entry.isIntersecting);
+        // Ocultar si cualquiera de las secciones está visible (al menos 20% en pantalla)
+        const anySectionVisible = entries.some(entry => entry.isIntersecting);
+        setVisible(!anySectionVisible);
       },
       {
         threshold: 0.2,
       }
     );
 
-    observer.observe(contact);
+    // Observar ambas secciones si existen
+    if (contact) observer.observe(contact);
+    if (footer) observer.observe(footer);
+    
     return () => observer.disconnect();
   }, []);
 

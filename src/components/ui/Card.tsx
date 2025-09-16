@@ -21,7 +21,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     },
     ref
   ) => {
-  const baseClasses = 'bg-surface dark:bg-surface-dark border border-border dark:border-border-dark rounded-xl transition-all duration-300';
+  const baseClasses = 'bg-surface dark:bg-surface-dark border border-border dark:border-border-dark rounded-xl transition-all duration-300 light-card-shadow';
     
     const variantClasses = {
       default: 'shadow-card',

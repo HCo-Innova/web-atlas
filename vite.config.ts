@@ -44,9 +44,7 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          state: ['@reduxjs/toolkit', 'react-redux'],
-          query: ['@tanstack/react-query'],
-          utils: ['axios', 'clsx', 'tailwind-merge']
+          utils: ['clsx', 'tailwind-merge']
         }
       }
     }

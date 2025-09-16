@@ -16,12 +16,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       return savedTheme;
     }
     
-    // Verificar preferencia del sistema
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return THEMES.dark;
-    }
-    
-    return THEMES.light;
+    // Modo oscuro como predeterminado
+    return THEMES.dark;
   });
 
   const setTheme = (newTheme: Theme) => {
@@ -56,10 +52,11 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
-    const handleChange = (e: MediaQueryListEvent) => {
+    const handleChange = (_e: MediaQueryListEvent) => {
       // Solo cambiar si no hay un tema guardado en localStorage
+      // Mantener modo oscuro como predeterminado
       if (!localStorage.getItem(STORAGE_KEYS.theme)) {
-        setThemeState(e.matches ? THEMES.dark : THEMES.light);
+        setThemeState(THEMES.dark);
       }
     };
 

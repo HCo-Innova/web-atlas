@@ -2,4 +2,4 @@
 export * from './design-system';
 export * from './common-styles';
 export * from './constants';
-export * from './navigation';
+export * from './navigationSEO';

@@ -2,181 +2,508 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Importar fuentes de Google Fonts */
+/* Importar fuentes optimizadas con font-display */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
 
-/* Estilos base para el sistema de diseño ATLAS Agro */
+/* ==========================================================================
+   ATLAS AGRO - SISTEMA DE ESTILOS OPTIMIZADO V2.0
+   Robusto, seguro, accesible y de alto rendimiento
+   ========================================================================== */
+
+/* 
+  TABLA DE CONTENIDOS:
+  1. Base Styles & Reset
+  2. Touch & Mobile Optimizations  
+  3. Typography System
+  4. Component Styles
+  5. Utility Classes
+  6. Responsive Utilities
+  7. Accessibility Features
+  8. Performance Optimizations
+*/
+
+/* ==========================================================================
+   1. BASE STYLES & RESET
+   ========================================================================== */
 @layer base {
+  /* Root variables para temas consistentes */
+  :root {
+    --font-family-display: 'Montserrat', system-ui, sans-serif;
+    --font-family-body: 'Inter', system-ui, sans-serif;
+    --scroll-padding-top: 5rem;
+    --header-height: 4rem;
+  }
+
   html {
-    font-family: 'Inter', sans-serif;
-    scroll-behavior: smooth;
-    overflow-x: hidden; /* Evitar desbordes horizontales por elementos fijos */
-    height: 100%;
-    /* Asegura que el fondo del viewport coincida con el de la app (evita franja blanca al sobre-desplazar) */
+    font-family: var(--font-family-body);
+    /* CRÍTICO: NO usar scroll-behavior: smooth globalmente para evitar conflictos móviles */
+    overflow-x: hidden;
+    /* height: 100%; REMOVIDO - puede causar problemas en móviles */
+    /* Optimizaciones críticas para móviles */
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-top: var(--scroll-padding-top);
+    /* Prevenir zoom en iOS durante cambios de orientación */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     @apply bg-background dark:bg-background-dark;
   }
 
   body {
-    /* Usar el color de fondo de la app para evitar la franja blanca en el overscroll */
-    @apply bg-background dark:bg-background-dark text-text-primary transition-colors duration-300;
-    overflow-x: hidden; /* Salvaguarda adicional */
-    min-height: 100%;
+    @apply bg-background dark:bg-background-dark text-text-primary dark:text-text-primary-dark;
+    @apply transition-colors duration-300;
+    overflow-x: hidden;
+    min-height: 100vh;
     margin: 0;
+    /* Optimizaciones profesionales para móviles */
+    -webkit-overflow-scrolling: touch;
+    touch-action: auto; /* CRÍTICO: Permitir todos los gestos nativos */
+    overscroll-behavior: auto; /* CRÍTICO: Comportamiento nativo del navegador */
+    /* Prevenir selección accidental en elementos de interfaz */
+    -webkit-tap-highlight-color: transparent;
   }
 
+  /* Reset mejorado para elementos */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Optimizaciones para elementos interactivos */
+  button, input, select, textarea, a {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation; /* Solo para elementos interactivos */
+  }
+
+/* ==========================================================================
+   2. TOUCH & MOBILE OPTIMIZATIONS
+   ========================================================================== */
+
+  /* Optimizaciones móviles profesionales */
+  @media screen and (max-width: 767px) {
+    html, body {
+      position: relative;
+      overflow-y: scroll; /* Forzar scrollbar para activar touch */
+      -webkit-overflow-scrolling: touch;
+      touch-action: auto; /* Permitir gestos nativos */
+      overscroll-behavior: auto; /* Comportamiento nativo */
+      min-height: 100vh;
+    }
+    
+    /* Contenido principal optimizado */
+    body > #root {
+      min-height: 100vh;
+      isolation: isolate; /* Crear nuevo contexto de stack */
+    }
+  }
+  
+  /* Prevenir zoom en inputs en iOS (crítico para UX móvil) */
+  @media screen and (max-width: 767px) {
+    input[type="text"],
+    input[type="email"], 
+    input[type="tel"],
+    input[type="password"],
+    input[type="search"],
+    input[type="url"],
+    textarea,
+    select {
+      font-size: 16px !important; /* Previene zoom automático en iOS */
+      transform: translateZ(0); /* Fuerza aceleración GPU */
+    }
+  }
+
+  /* Containers de scroll optimizados */
+  .scroll-container {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: auto; /* Permitir comportamiento nativo */
+    scroll-behavior: auto;
+  }
+
+  /* Solo aplicar smooth scroll en dispositivos no táctiles */
+  @media (hover: hover) and (pointer: fine) {
+    .scroll-container {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ==========================================================================
+   3. TYPOGRAPHY SYSTEM
+   ========================================================================== */
+@layer base {
   /* Configuración de fuentes según el sistema de diseño */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-family-display);
     font-weight: 700;
     line-height: 1.2;
-    @apply text-text-primary;
+    letter-spacing: -0.025em;
+    @apply text-text-primary dark:text-text-primary-dark;
   }
 
   h1 {
     @apply text-hero-mobile sm:text-hero-tablet lg:text-hero-desktop;
+    font-weight: 800;
   }
 
   h2 {
     @apply text-section-mobile sm:text-section-tablet lg:text-section-desktop;
+    font-weight: 700;
   }
 
   h3 {
     @apply text-2xl sm:text-3xl lg:text-4xl;
+    font-weight: 600;
   }
 
   h4 {
     @apply text-xl sm:text-2xl lg:text-3xl;
+    font-weight: 600;
   }
 
   h5 {
     @apply text-lg sm:text-xl lg:text-2xl;
+    font-weight: 600;
   }
 
   h6 {
     @apply text-base sm:text-lg lg:text-xl;
+    font-weight: 600;
   }
 
   p {
-    @apply text-base leading-relaxed text-text-secondary;
+    @apply text-base leading-relaxed text-text-secondary dark:text-text-secondary-dark;
+    font-family: var(--font-family-body);
   }
 
-  /* Estilos para enlaces */
+  /* Estilos para enlaces con estados de accesibilidad */
   a {
-    @apply text-accent hover:text-accent-dark transition-colors duration-200;
+    @apply text-accent dark:text-accent-dark transition-colors duration-200;
+    text-decoration: none;
   }
 
-  /* Estilos para botones base */
-  button {
-    @apply transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary;
+  a:hover, a:focus {
+    @apply text-accent/80 dark:text-accent-dark/80;
+    text-decoration: underline;
   }
 
-  /* Estilos para inputs base */
-  input, textarea, select {
-    @apply transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+  a:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary dark:outline-primary-dark;
+    outline-style: solid;
   }
 
-  /* Scrollbar personalizado */
-  ::-webkit-scrollbar {
-    width: 8px;
+  /* Optimización de renderizado de texto */
+  body, input, textarea, select {
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  ::-webkit-scrollbar-track {
-    @apply bg-background;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-text-secondary;
-  }
-
-  /* Modo oscuro */
-  .dark ::-webkit-scrollbar-track {
-    @apply bg-background-dark;
-  }
-
-  .dark ::-webkit-scrollbar-thumb {
-    @apply bg-border-dark;
-  }
-
-  .dark ::-webkit-scrollbar-thumb:hover {
-    @apply bg-text-secondary;
+  h1, h2, h3, h4, h5, h6 {
+    text-rendering: optimizeLegibility;
   }
 }
 
-/* Componentes del sistema de diseño */
+/* ==========================================================================
+   4. COMPONENT STYLES
+   ========================================================================== */
 @layer components {
-  /* Botón primario */
+  /* Sistema de botones robusto y accesible */
+  .btn {
+    @apply inline-flex items-center justify-center font-medium;
+    @apply transition-all duration-200 ease-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
+    @apply touch-action-manipulation select-none;
+    position: relative;
+    overflow: hidden;
+  }
+
   .btn-primary {
-    @apply bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply btn bg-primary text-white;
+    @apply hover:bg-primary/90 active:bg-primary/95;
+    @apply focus:ring-primary/50;
+    @apply dark:bg-primary-dark dark:hover:bg-primary-dark/90;
   }
 
-  /* Botón secundario */
   .btn-secondary {
-    @apply border-2 border-primary text-primary px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply btn border-2 border-primary text-primary;
+    @apply hover:bg-primary hover:text-white;
+    @apply focus:ring-primary/50;
+    @apply dark:border-primary-dark dark:text-primary-dark;
+    @apply dark:hover:bg-primary-dark dark:hover:text-white;
   }
 
-  /* Botón de texto */
-  .btn-text {
-    @apply text-primary hover:text-primary/80 font-medium focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+  .btn-outline {
+    @apply btn border border-border text-text-primary;
+    @apply hover:bg-surface hover:border-border/60;
+    @apply focus:ring-primary/30;
+    @apply dark:border-border-dark dark:text-text-primary-dark;
+    @apply dark:hover:bg-surface-dark;
   }
 
-  /* Tarjeta base */
+  .btn-ghost {
+    @apply btn text-text-primary;
+    @apply hover:bg-surface/50;
+    @apply focus:ring-primary/30;
+    @apply dark:text-text-primary-dark dark:hover:bg-surface-dark/50;
+  }
+
+  /* Tamaños de botones responsive */
+  .btn-xs { @apply px-2 py-1 text-xs rounded; }
+  .btn-sm { @apply px-3 py-1.5 text-sm rounded-md; }
+  .btn-md { @apply px-4 py-2 text-base rounded-md; }
+  .btn-lg { @apply px-6 py-3 text-lg rounded-lg; }
+  .btn-xl { @apply px-8 py-4 text-xl rounded-xl; }
+
+  /* Sistema de tarjetas mejorado */
   .card {
-    @apply bg-surface border border-border rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300;
+    @apply bg-surface border border-border rounded-xl;
+    @apply shadow-card transition-all duration-300;
+    @apply dark:bg-surface-dark dark:border-border-dark;
+    position: relative;
+    overflow: hidden;
   }
 
   .card-elevated {
-    @apply bg-surface border border-border rounded-xl shadow-elevated;
+    @apply card shadow-elevated;
   }
 
-  /* Contenedor principal optimizado para mobile-first */
+  .card-interactive {
+    @apply card hover:shadow-card-hover cursor-pointer;
+    @apply hover:-translate-y-0.5 active:translate-y-0;
+    @apply transform-gpu will-change-transform;
+  }
+
+  .card-padding-none { @apply p-0; }
+  .card-padding-sm { @apply p-4; }
+  .card-padding-md { @apply p-6; }
+  .card-padding-lg { @apply p-8; }
+
+  /* Sistema de inputs accesible */
+  .input {
+    @apply w-full border border-border rounded-md px-3 py-2;
+    @apply text-base placeholder-text-secondary/60;
+    @apply bg-surface text-text-primary;
+    @apply transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+    @apply dark:bg-surface-dark dark:border-border-dark;
+    @apply dark:text-text-primary-dark dark:placeholder-text-secondary-dark/60;
+    @apply dark:focus:ring-primary-dark dark:focus:border-primary-dark;
+  }
+
+  .input-error {
+    @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+  }
+
+  .input-success {
+    @apply border-green-500 focus:ring-green-500 focus:border-green-500;
+  }
+
+  /* Contenedores principales optimizados para mobile-first */
   .container-main {
-    @apply max-w-7xl mx-auto px-mobile-padding sm:px-tablet-padding lg:px-desktop-padding;
-  }
-
-  /* Sección con padding consistente mobile-first */
-  .section {
-    @apply py-mobile-section sm:py-tablet-section lg:py-desktop-section;
-  }
-
-  /* Contenedor de sección con padding interno */
-  .section-container {
+    @apply max-w-7xl mx-auto;
     @apply px-mobile-padding sm:px-tablet-padding lg:px-desktop-padding;
   }
 
-  /* Grid de 12 columnas */
-  .grid-12 {
-    @apply grid grid-cols-12 gap-4 md:gap-6 lg:gap-8;
+  .section {
+    @apply py-mobile-section sm:py-tablet-section lg:py-desktop-section;
+    scroll-margin-top: var(--scroll-padding-top);
   }
 
-  /* Espaciado consistente */
-  .space-section {
-    @apply space-y-8 md:space-y-12 lg:space-y-16;
+  /* Anclas/Secciones que deben compensar el header fijo */
+  .scroll-target {
+    scroll-margin-top: var(--scroll-padding-top);
   }
 
-  /* Texto centrado */
-  .text-center-section {
-    @apply text-center max-w-3xl mx-auto;
+  .section-container {
+    @apply container-main space-y-8 md:space-y-12 lg:space-y-16;
   }
 
-  /* Gradiente de fondo sutil */
-  .bg-gradient-subtle {
-    background: linear-gradient(135deg, theme('colors.background') 0%, theme('colors.surface') 100%);
+  /* Scrollbar personalizado */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
 
-  .dark .bg-gradient-subtle {
-    background: linear-gradient(135deg, theme('colors.background.dark') 0%, theme('colors.surface.dark') 100%);
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-background dark:bg-background-dark;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-border dark:bg-border-dark rounded-full;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-secondary dark:bg-text-secondary-dark;
+  }
+
+  /* Estados de carga mejorados */
+  .loading-skeleton {
+    @apply bg-surface dark:bg-surface-dark;
+    @apply animate-pulse rounded;
+    background: linear-gradient(
+      90deg,
+      theme('colors.surface') 25%,
+      theme('colors.border') 50%,
+      theme('colors.surface') 75%
+    );
+    background-size: 200% 100%;
+    animation: loading-wave 1.5s infinite;
+  }
+
+  .dark .loading-skeleton {
+    background: linear-gradient(
+      90deg,
+      theme('colors.surface.dark') 25%,
+      theme('colors.border.dark') 50%,
+      theme('colors.surface.dark') 75%
+    );
+    background-size: 200% 100%;
   }
 }
 
-/* Utilidades personalizadas */
+
+/* ==========================================================================
+   5. UTILITY CLASSES
+   ========================================================================== */
 @layer utilities {
-  /* Animaciones de entrada */
+  /* Optimizaciones de performance */
+  .gpu-optimized {
+    @apply will-change-transform transform-gpu backface-hidden;
+  }
+
+  .smooth-transition {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  /* Touch optimizations */
+  .touch-optimized {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  /* Scroll optimizations */
+  .scroll-smooth-safe {
+    scroll-behavior: auto;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .scroll-smooth-safe {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Focus utilities for accessibility */
+  .focus-visible-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+    @apply dark:focus-visible:ring-primary-dark;
+  }
+
+  /* Aspect ratio utilities */
+  .aspect-video { aspect-ratio: 16 / 9; }
+  .aspect-square { aspect-ratio: 1 / 1; }
+  .aspect-photo { aspect-ratio: 4 / 3; }
+
+  /* Gradient utilities */
+  .gradient-primary {
+    background: linear-gradient(135deg, theme('colors.primary') 0%, theme('colors.accent') 100%);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .dark .gradient-text {
+    @apply from-primary-dark to-accent-dark;
+  }
+
+  /* LIGHT MODE EFFECTS - SIMPLE AND VISIBLE */
+  
+  /* Strong title shadow for light mode - VERY VISIBLE */
+  .light-title-shadow {
+    text-shadow: 
+      0 3px 6px rgba(0, 0, 0, 0.3),
+      0 1px 3px rgba(0, 0, 0, 0.2),
+      0 0 15px rgba(74, 119, 41, 0.4);
+  }
+  
+  /* Strong subtitle shadow for light mode */
+  .light-subtitle-shadow {
+    text-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.25),
+      0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Card shadow for light mode - VERY VISIBLE */
+  .light-card-shadow {
+    box-shadow: 
+      0 8px 20px rgba(0, 0, 0, 0.15),
+      0 4px 10px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(74, 119, 41, 0.1),
+      0 0 20px rgba(74, 119, 41, 0.2);
+  }
+  
+  .light-card-shadow:hover {
+    box-shadow: 
+      0 12px 30px rgba(0, 0, 0, 0.2),
+      0 6px 15px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(74, 119, 41, 0.2),
+      0 0 30px rgba(74, 119, 41, 0.3);
+    transform: translateY(-3px);
+  }
+  
+  /* Enhanced background for light mode */
+  .light-enhanced-bg {
+    background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+  }
+  
+  /* Navigation text - prevent line breaks */
+  .nav-text-nowrap {
+    white-space: nowrap;
+  }
+  
+  /* Remove ALL effects in dark mode */
+  .dark .light-title-shadow,
+  .dark .light-subtitle-shadow {
+    text-shadow: none !important;
+  }
+  
+  .dark .light-card-shadow {
+    box-shadow: 
+      0 1px 3px 0 rgba(0, 0, 0, 0.1), 
+      0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+    transform: none !important;
+  }
+  
+  .dark .light-enhanced-bg {
+    background: #111827 !important;
+  }
+
+  /* Animation utilities */
   .animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 0.5s ease-out;
   }
 
   .animate-slide-up {
@@ -187,7 +514,7 @@
     animation: scaleIn 0.2s ease-out;
   }
 
-  /* Efectos de hover */
+  /* Interaction utilities */
   .hover-lift {
     @apply hover:-translate-y-1 transition-transform duration-200;
   }
@@ -196,121 +523,224 @@
     @apply hover:shadow-lg hover:shadow-primary/25 transition-shadow duration-200;
   }
 
-  /* Texto con gradiente */
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  .hover-glow-light {
+    transition: all 0.3s ease;
   }
 
-  /* Bordes con gradiente */
-  .border-gradient {
-    @apply border-2 border-transparent bg-gradient-to-r from-primary to-accent bg-clip-border;
+  .hover-glow-light:hover {
+    text-shadow: 
+      0 0 8px rgba(74, 119, 41, 0.15),
+      0 1px 3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
   }
 
-  /* Focus visible para accesibilidad */
-  .focus-visible {
+
+  /* Safe area utilities for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* ==========================================================================
+   6. RESPONSIVE UTILITIES
+   ========================================================================== */
+@layer utilities {
+  /* Visibility utilities mobile-first */
+  .mobile-only { @apply block sm:hidden; }
+  .tablet-up { @apply hidden sm:block; }
+  .desktop-up { @apply hidden lg:block; }
+  .mobile-tablet { @apply block lg:hidden; }
+
+  /* Grid utilities responsive */
+  .grid-responsive { @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8; }
+  .grid-responsive-2 { @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8; }
+  .grid-responsive-3 { @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8; }
+
+  /* Text utilities responsive */
+  .text-responsive { @apply text-sm sm:text-base lg:text-lg; }
+  .text-responsive-lg { @apply text-base sm:text-lg lg:text-xl; }
+  .text-responsive-xl { @apply text-lg sm:text-xl lg:text-2xl; }
+
+  /* Spacing utilities responsive */
+  .space-responsive { @apply space-y-4 sm:space-y-6 lg:space-y-8; }
+  .space-responsive-x { @apply space-x-4 sm:space-x-6 lg:space-x-8; }
+  .p-responsive { @apply p-4 sm:p-6 lg:p-8; }
+  .px-responsive { @apply px-4 sm:px-6 lg:px-8; }
+  .py-responsive { @apply py-4 sm:py-6 lg:py-8; }
+  .m-responsive { @apply m-4 sm:m-6 lg:m-8; }
+  .mx-responsive { @apply mx-4 sm:mx-6 lg:mx-8; }
+  .my-responsive { @apply my-4 sm:my-6 lg:my-8; }
+}
+
+/* ==========================================================================
+   7. ACCESSIBILITY FEATURES
+   ========================================================================== */
+@layer utilities {
+  /* Screen reader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Skip links */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4;
+    @apply bg-surface border border-border rounded-md px-4 py-2;
+    @apply text-text-primary font-medium z-50;
+    @apply dark:bg-surface-dark dark:border-border-dark dark:text-text-primary-dark;
+  }
+
+  /* Reduced motion utilities */
+  .motion-reduce-safe {
+    @apply motion-reduce:transition-none motion-reduce:animate-none;
+  }
+
+  /* High contrast mode support */
+  .contrast-safe {
+    @apply contrast-more:border-2 contrast-more:border-current;
+  }
+
+  /* Focus indicators */
+  .focus-ring {
     @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    @apply dark:focus:ring-primary-dark;
   }
 
-  /* Estados de carga */
-  .loading {
-    @apply animate-pulse;
+  .focus-ring-inset {
+    @apply focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary;
+    @apply dark:focus:ring-primary-dark;
+  }
+}
+
+/* ==========================================================================
+   8. PERFORMANCE OPTIMIZATIONS & KEYFRAMES
+   ========================================================================== */
+@layer utilities {
+  /* Performance hints */
+  .perf-optimized {
+    contain: layout style paint;
+    will-change: transform;
   }
 
-  /* Ocultar scrollbar pero mantener funcionalidad */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .perf-auto {
+    will-change: auto;
   }
 
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  /* Content visibility for better performance */
+  .content-visibility-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 500px;
   }
+}
 
-  /* Utilidades específicas para mobile-first */
-  .mobile-only {
-    @apply block sm:hidden;
+/* Keyframes para animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
   }
-
-  .tablet-up {
-    @apply hidden sm:block;
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
   }
+}
 
-  .desktop-up {
-    @apply hidden lg:block;
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
   }
-
-  .mobile-tablet {
-    @apply block lg:hidden;
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
   }
+}
 
-  /* Grid responsive optimizado para mobile */
-  .grid-responsive {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8;
+@keyframes loading-wave {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES ESPECÍFICAS PARA DISPOSITIVOS
+   ========================================================================== */
+
+/* Optimizaciones para dispositivos con notch */
+@supports (padding: max(0px)) {
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
+}
 
-  .grid-responsive-2 {
-    @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8;
+/* Optimizaciones para pantallas de alta densidad */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .high-dpi-optimized {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
+}
 
-  .grid-responsive-3 {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8;
+/* Optimizaciones para modo paisaje en móviles */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .landscape-mobile {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
+}
 
-  /* Texto responsive */
-  .text-responsive {
-    @apply text-sm sm:text-base lg:text-lg;
+/* Preferencias de usuario */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
 
-  .text-responsive-lg {
-    @apply text-base sm:text-lg lg:text-xl;
+@media (prefers-contrast: high) {
+  .contrast-enhanced {
+    border: 2px solid currentColor;
+    background: Canvas;
+    color: CanvasText;
   }
+}
 
-  .text-responsive-xl {
-    @apply text-lg sm:text-xl lg:text-2xl;
+/* Print styles */
+@media print {
+  *, *::before, *::after {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
   }
-
-  /* Botones responsive */
-  .btn-responsive {
-    @apply w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3;
-  }
-
-  /* Cards responsive */
-  .card-responsive {
-    @apply w-full sm:w-auto;
-  }
-
-  /* Espaciado responsive */
-  .space-responsive {
-    @apply space-y-4 sm:space-y-6 lg:space-y-8;
-  }
-
-  .space-responsive-x {
-    @apply space-x-4 sm:space-x-6 lg:space-x-8;
-  }
-
-  /* Padding responsive */
-  .p-responsive {
-    @apply p-4 sm:p-6 lg:p-8;
-  }
-
-  .px-responsive {
-    @apply px-4 sm:px-6 lg:px-8;
-  }
-
-  .py-responsive {
-    @apply py-4 sm:py-6 lg:py-8;
-  }
-
-  /* Margin responsive */
-  .m-responsive {
-    @apply m-4 sm:m-6 lg:m-8;
-  }
-
-  .mx-responsive {
-    @apply mx-4 sm:mx-6 lg:mx-8;
-  }
-
-  .my-responsive {
-    @apply my-4 sm:my-6 lg:my-8;
+  
+  .no-print {
+    display: none !important;
   }
 }

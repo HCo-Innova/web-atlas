@@ -1,14 +1,18 @@
 import { useTranslation } from 'react-i18next';
-import { Button } from './ui';
 import { cn } from '../lib/design-system';
 import { useEffect } from 'react';
+import { useTheme } from '../hooks';
 
 interface HeroProps {
   className?: string;
 }
 
 export function Hero({ className }: HeroProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { theme } = useTheme();
+  const isLightMode = theme === 'light';
+  const currentLanguage = (i18n.language as 'es' | 'en') || 'es';
+  const sectionId = currentLanguage === 'en' ? 'home' : 'inicio';
   // Indicador se movió a componente global; mantenemos sólo un oyente ligero por si se requiere a futuro
 
   useEffect(() => {
@@ -28,12 +32,13 @@ export function Hero({ className }: HeroProps) {
   }, []);
 
   return (
-    <section id="inicio" className={cn(
+    <section id={sectionId} className={cn(
+      'scroll-target', // CSS-first scroll compensation
       'relative min-h-screen flex items-center justify-center overflow-hidden',
       // Compensar altura del header fijo
       'pt-16 md:pt-20',
-      'bg-gradient-to-br from-background via-background to-surface/50',
-      'dark:from-background-dark dark:via-background-dark dark:to-surface-dark/50',
+      'bg-background dark:bg-background-dark',
+      isLightMode ? 'light-enhanced-bg' : '',
       className
     )}>
       {/* Background Pattern */}
@@ -49,7 +54,10 @@ export function Hero({ className }: HeroProps) {
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Main Title */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-            <span className="block text-text-primary dark:text-text-primary-dark mb-4">
+            <span className={cn(
+              "block text-text-primary dark:text-text-primary-dark mb-4",
+              isLightMode ? "light-title-shadow" : ""
+            )}>
               {t('hero.title').split(':')[0]}
             </span>
             <span className="block text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -58,19 +66,21 @@ export function Hero({ className }: HeroProps) {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl lg:text-2xl text-text-secondary dark:text-text-secondary-dark max-w-3xl mx-auto leading-relaxed">
+          <p className={cn(
+            "text-lg sm:text-xl lg:text-2xl text-text-secondary dark:text-text-secondary-dark max-w-3xl mx-auto leading-relaxed",
+            isLightMode ? "light-subtitle-shadow" : ""
+          )}>
             {t('hero.subtitle')}
           </p>
 
           {/* CTA Button */}
           <div className="pt-5 sm:pt-8">
-            <Button
-              variant="primary"
-              size="lg"
-              className="btn-responsive text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            <a
+              href="mailto:contacto@atlasaisa.com.py"
+              className="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-primary text-white !text-white hover:bg-primary/90 focus:ring-primary/50 shadow-sm hover:shadow-md btn-responsive text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               {t('hero.cta_button')}
-            </Button>
+            </a>
           </div>
 
           {/* Stats or Features */}

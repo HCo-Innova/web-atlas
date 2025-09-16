@@ -18,10 +18,12 @@
   },
   "navigation": {
     "inicio": "Home",
-    "nosotros": "About Us",
+    "nosotros": "About",
     "calidad": "Quality",
     "proceso": "Process",
     "productos": "Products",
+    "faq": "Frequently Asked Questions",
+    "faq_short": "FAQ",
     "contacto": "Contact"
   },
   "header": {
@@ -39,7 +41,7 @@
   "hero": {
     "title": "Leaders in Seeds & Grains: From Our Fields to the World",
     "subtitle": "We specialize in the production, processing, and commercialization of high-quality chia and sesame, while empowering small-scale producers.",
-    "cta_button": "Discover Our Products"
+    "cta_button": "Contact Us Now"
   },
   "about": {
     "title": "About Us",
@@ -164,12 +166,35 @@
       "title": "Certification Partner",
       "name": "CITEC",
       "description": "We collaborate with CITEC to maintain our certification standards."
+    },
+    "sections": {
+      "analysis": "Analysis & Processes",
+      "certifications": "Certifications"
+    },
+    "commitment": {
+      "title": "Commitment to Excellence",
+      "description": "Our commitment to quality is unwavering. Every product we deliver meets the highest international standards, ensuring the satisfaction and trust of our customers worldwide."
     }
   },
   "contact": {
     "title": "Contact",
     "description": "Get in touch with us for more information about our products and services.",
     "intro": "We are here to answer your questions. Contact us to learn more about our products and business opportunities.",
+    "sections": {
+      "contact_info": "Contact Information",
+      "how_help": "How can we help you?"
+    },
+    "help_card": {
+      "title": "We are here for you",
+      "description": "Do you have questions about our products or services? Don't hesitate to contact us. Our team will be happy to help you.",
+      "send_email": "Send Email",
+      "call_now": "Call Now"
+    },
+    "labels": {
+      "email_principal": "Main Email",
+      "email_alternativo": "Alternative Email",
+      "telefono": "Phone"
+    },
     "contact_details": [
       { "type": "email", "value": "gfontanetti@gmail.com" },
       { "type": "email", "value": "giufonbo@gmail.com" },
@@ -188,8 +213,57 @@
     }
   },
   "footer": {
+    "title": "Leaders in Quality Grains and Seeds",
+    "subtitle": "From field to world, cultivating excellence and sustainability in every grain we produce.",
     "rights": "All rights reserved",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Use"
+    "terms": "Terms of Use",
+    "developed_by": "Developed by"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to the most common questions about our products, services, and processes.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "What does ATLAS Agro Iindustrial S.A. do?",
+        "answer": "We are dedicated to the production, processing, and commercialization of high-quality seeds and grains. We also offer advice and development for small producers."
+      },
+      {
+        "id": 2,
+        "question": "What products do you offer?",
+        "answer": "Our main products are Chia and Sesame. Both are available in organic and conventional varieties to suit our customers' needs."
+      },
+      {
+        "id": 3,
+        "question": "How do you ensure the quality of your products?",
+        "answer": "Quality is fundamental to us. We comply with high quality standards and our processes are carried out in certified plants. We conduct laboratory analyses to ensure that every product batch meets the most demanding specifications before shipment."
+      },
+      {
+        "id": 4,
+        "question": "Do you ship internationally?",
+        "answer": "Yes. As leaders in the national and international market, we are equipped to export our products to various countries. For specific details on logistics and destinations, please contact our sales team."
+      },
+      {
+        "id": 5,
+        "question": "How can I place an order or request a quote?",
+        "answer": "To request a quote or initiate an order, please email our sales department at sales@atlasagroindustrial.com. Please include the product of interest, the desired quantity (in metric tons), and the destination port to expedite the process."
+      },
+      {
+        "id": 6,
+        "question": "What are the packaging options?",
+        "answer": "Our standard packaging consists of 25 kg polypropylene bags, designed to preserve the product's quality. However, we are flexible and can evaluate other packaging options to meet our clients' specific needs."
+      },
+      {
+        "id": 7,
+        "question": "I am a small producer. How can I learn more about your development programs?",
+        "answer": "We are committed to the growth of our partners. If you are a small producer interested in our advice and development program, please contact us at producers@atlasagroindustrial.com to receive more information."
+      }
+    ],
+    "cta": {
+      "title": "Didn't find your answer?",
+      "description": "If you have any specific questions that are not on our list, please don't hesitate to contact us. Our team will be happy to help you.",
+      "button": "Contact Now"
+    }
   }
 }

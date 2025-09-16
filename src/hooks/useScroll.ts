@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 /**
  * Hook profesional para manejo de scroll con auto-hide header
@@ -9,9 +9,16 @@ export function useScroll() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
   const [showHeader, setShowHeader] = useState(true);
+  const [forceShowHeader, setForceShowHeader] = useState(false);
 
   const lastScrollY = useRef(0);
   const isInitialized = useRef(false);
+  const forceShowTimer = useRef<number | null>(null);
+  
+  // 🔍 LOGGING SILENCIADO - comportamiento nativo correcto
+  const logScrollInfo = useCallback((_message: string, _data?: Record<string, unknown>) => {
+    // console.log(`📊 [SCROLL-DEBUG] ${_message}`, _data || '');
+  }, []);
 
   useEffect(() => {
     // Inicializar valores
@@ -25,34 +32,52 @@ export function useScroll() {
       const currentScrollY = window.scrollY;
       const prevScrollY = lastScrollY.current;
       
-      // Siempre actualizar posición actual
+      // Solo procesar si hay cambio real de posición (EARLY RETURN)
+      if (currentScrollY === prevScrollY) {
+        return; // ⚡ SKIP IMMEDIATAMENTE - no hacer setState innecesarios
+      }
+      
+      // BATCH de estados en una sola operación
+      const wasScrolled = currentScrollY > 10;
       setScrollY(currentScrollY);
-      setIsScrolled(currentScrollY > 10);
+      setIsScrolled(wasScrolled);
       
-      // Solo procesar si hay cambio real de posición
-      if (currentScrollY === prevScrollY) return;
-      
-      // Determinar dirección del scroll
+      // Determinar dirección del scroll con minimal processing
       const isScrollingDown = currentScrollY > prevScrollY;
-      const isScrollingUp = currentScrollY < prevScrollY;
       
-      // Actualizar dirección
+      // Comportamiento nativo del browser es correcto - no necesita logs
+      
+      // SOLO actualizar dirección si cambió (evitar setState innecesarios)
       if (isScrollingDown) {
         setDirection('down');
-      } else if (isScrollingUp) {
+      } else {
         setDirection('up');
       }
       
-      // Auto-hide logic simplificada y directa
+      // Auto-hide logic OPTIMIZADO - minimal state changes
       if (currentScrollY <= 80) {
-        // Zona superior: siempre mostrar
-        setShowHeader(true);
+        // Zona superior: mostrar (solo si no está ya mostrado)
+        if (!showHeader) setShowHeader(true);
+        // Limpiar force show si estamos en la zona superior
+        if (forceShowHeader) {
+          setForceShowHeader(false);
+          if (forceShowTimer.current) {
+            clearTimeout(forceShowTimer.current);
+            forceShowTimer.current = null;
+          }
+        }
       } else {
-        // Después de 80px: controlar según dirección
-        if (isScrollingDown) {
-          setShowHeader(false);
-        } else if (isScrollingUp) {
-          setShowHeader(true);
+        // Después de 80px: controlar según dirección, PERO respetar forceShowHeader
+        if (forceShowHeader) {
+          // Si está forzado a mostrar, mantener visible
+          if (!showHeader) setShowHeader(true);
+        } else {
+          // Comportamiento normal de auto-hide
+          if (isScrollingDown && showHeader) {
+            setShowHeader(false);
+          } else if (!isScrollingDown && !showHeader) {
+            setShowHeader(true);
+          }
         }
       }
       
@@ -66,6 +91,23 @@ export function useScroll() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+  }, [logScrollInfo, showHeader, forceShowHeader]);
+
+  // Función para forzar mostrar header (útil después de navegación móvil)
+  const forceShowHeaderFor = useCallback((duration: number = 3000) => {
+    setForceShowHeader(true);
+    setShowHeader(true);
+    
+    // Limpiar timer anterior si existe
+    if (forceShowTimer.current) {
+      clearTimeout(forceShowTimer.current);
+    }
+    
+    // Configurar nuevo timer
+    forceShowTimer.current = setTimeout(() => {
+      setForceShowHeader(false);
+      forceShowTimer.current = null;
+    }, duration);
   }, []);
 
   return {
@@ -74,6 +116,7 @@ export function useScroll() {
     direction,
     isScrollingDown: direction === 'down',
     isScrollingUp: direction === 'up',
-    showHeader
+    showHeader,
+    forceShowHeaderFor
   };
 }

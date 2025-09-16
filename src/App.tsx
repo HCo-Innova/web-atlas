@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DesignSystemDemo } from './components/DesignSystemDemo';
+import { HomePage } from './components/HomePage';
 import { routeUtils } from './lib/seoRoutes';
+import { useScrollToSection } from './hooks/useScrollToSection';
 
 /**
  * Componente principal de la aplicación con manejo de rutas SEO
@@ -71,32 +72,29 @@ function LanguageRoute() {
 }
 
 /**
- * Componente que renderiza la página y hace scroll a la sección correspondiente
+ * Componente que maneja rutas con scroll automático a secciones
+ * Optimizado: CSS maneja el scroll, JavaScript solo actualiza URL
  */
 interface PageWithSectionProps {
   routeId: string;
 }
 
 function PageWithSection({ routeId }: PageWithSectionProps) {
+  const { scrollToSection } = useScrollToSection();
+  const { i18n } = useTranslation();
+
   useEffect(() => {
-    // Hacer scroll a la sección después de que el componente se monte
-    const sectionId = routeUtils.getSectionId(routeId);
+    const currentLanguage = (i18n.language as 'es' | 'en') || 'es';
+    const sectionId = routeUtils.getSectionId(routeId, currentLanguage);
     
-    // Usar setTimeout para asegurar que el DOM esté completamente renderizado
-    const timer = setTimeout(() => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, [routeId]);
-  
-  return <DesignSystemDemo />;
+    // 🎯 SCROLL ROBUSTO: sin timeouts, medición dinámica
+    scrollToSection(sectionId, {
+      behavior: 'smooth',
+      duration: 300
+    });
+  }, [routeId, scrollToSection, i18n.language]);
+
+  return <HomePage />;
 }
 
 export default App;

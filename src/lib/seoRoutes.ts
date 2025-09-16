@@ -7,7 +7,10 @@ export interface RouteConfig {
   id: string;
   es: string;
   en: string;
-  sectionId: string; // ID de la sección DOM para scroll
+  sectionId: {
+    es: string;
+    en: string;
+  }; // IDs de sección DOM bilingües para SEO
   seoTitle: {
     es: string;
     en: string;
@@ -27,7 +30,10 @@ export const SEO_ROUTES: Record<string, RouteConfig> = {
     id: 'home',
     es: '/',
     en: '/',
-    sectionId: 'inicio',
+    sectionId: {
+      es: 'inicio',
+      en: 'home'
+    },
     seoTitle: {
       es: 'ATLAS Agro Industrial - Semillas y Granos de Calidad',
       en: 'ATLAS Agro Industrial - Quality Seeds and Grains'
@@ -41,7 +47,10 @@ export const SEO_ROUTES: Record<string, RouteConfig> = {
     id: 'about',
     es: '/nosotros',
     en: '/about-us',
-    sectionId: 'nosotros',
+    sectionId: {
+      es: 'nosotros',
+      en: 'about-us'
+    },
     seoTitle: {
       es: 'Nosotros - ATLAS Agro Industrial',
       en: 'About Us - ATLAS Agro Industrial'
@@ -55,7 +64,10 @@ export const SEO_ROUTES: Record<string, RouteConfig> = {
     id: 'products',
     es: '/productos',
     en: '/products',
-    sectionId: 'productos',
+    sectionId: {
+      es: 'productos',
+      en: 'products'
+    },
     seoTitle: {
       es: 'Productos - Chía y Sésamo Orgánico | ATLAS Agro',
       en: 'Products - Organic Chia and Sesame | ATLAS Agro'
@@ -69,7 +81,10 @@ export const SEO_ROUTES: Record<string, RouteConfig> = {
     id: 'process',
     es: '/proceso',
     en: '/process',
-    sectionId: 'proceso',
+    sectionId: {
+      es: 'proceso',
+      en: 'process'
+    },
     seoTitle: {
       es: 'Proceso y Operaciones - ATLAS Agro Industrial',
       en: 'Process and Operations - ATLAS Agro Industrial'
@@ -83,7 +98,10 @@ export const SEO_ROUTES: Record<string, RouteConfig> = {
     id: 'quality',
     es: '/calidad',
     en: '/quality',
-    sectionId: 'calidad',
+    sectionId: {
+      es: 'calidad',
+      en: 'quality'
+    },
     seoTitle: {
       es: 'Calidad y Certificaciones - ATLAS Agro Industrial',
       en: 'Quality and Certifications - ATLAS Agro Industrial'
@@ -97,7 +115,10 @@ export const SEO_ROUTES: Record<string, RouteConfig> = {
     id: 'contact',
     es: '/contacto',
     en: '/contact',
-    sectionId: 'contacto',
+    sectionId: {
+      es: 'contacto',
+      en: 'contact'
+    },
     seoTitle: {
       es: 'Contacto - ATLAS Agro Industrial',
       en: 'Contact - ATLAS Agro Industrial'
@@ -160,11 +181,11 @@ export const routeUtils = {
   },
 
   /**
-   * Obtiene el ID de sección DOM para scroll
+   * Obtiene el ID de sección DOM para scroll según idioma
    */
-  getSectionId: (routeId: string): string => {
+  getSectionId: (routeId: string, language: 'es' | 'en' = 'es'): string => {
     const route = SEO_ROUTES[routeId];
-    return route ? route.sectionId : 'inicio';
+    return route ? route.sectionId[language] : (language === 'en' ? 'home' : 'inicio');
   },
 
   /**

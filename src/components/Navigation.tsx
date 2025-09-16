@@ -28,12 +28,12 @@ export function Navigation({
     // Base navigation styles con spacing mínimo
     isDesktop 
       ? 'hidden md:flex md:items-center md:space-x-1 lg:space-x-2' 
-      : 'flex flex-col space-y-3'
+      : 'flex flex-col space-y-2'
   );
 
   const linkClasses = cn(
     // Base link styles with Tailwind utilities - padding reducido
-    'relative px-2 py-1.5 text-sm font-medium transition-all duration-200',
+    'relative px-2 py-1.5 text-sm font-medium transition-all duration-200 nav-text-nowrap',
     'text-text-primary dark:text-text-primary-dark',
     'hover:text-primary dark:hover:text-primary-dark',
     'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2',
@@ -41,8 +41,20 @@ export function Navigation({
     // Desktop vs Mobile specific styles
     isDesktop 
       ? 'rounded-md hover:bg-primary/5 dark:hover:bg-primary-dark/5'
-      : 'rounded-lg px-4 py-3 text-base hover:bg-surface-dark/5 dark:hover:bg-surface/5'
+      : 'rounded-lg px-4 py-2.5 text-base hover:bg-surface-dark/5 dark:hover:bg-surface/5 min-h-[44px] flex items-center'
   );
+
+  const handleItemClick = (e: React.MouseEvent<HTMLElement>, item: NavItem) => {
+    // Cerrar menú PRIMERO para liberar scroll en móviles
+    onItemClick?.();
+    
+    // Pequeño delay para que se complete el cierre del menú
+    setTimeout(() => {
+      if (!navigationUtils.isExternal(item)) {
+        handleNavClick(e, item.routeId);
+      }
+    }, 100);
+  };
 
   return (
     <nav className={cn(navClasses, className)} role="navigation">
@@ -51,29 +63,36 @@ export function Navigation({
           return (
             <a
               key={item.id}
-              href="#" // Enlaces externos se manejarán por separado
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className={linkClasses}
-              onClick={onItemClick}
+              onClick={() => onItemClick?.()}
             >
-              {t(`navigation.${item.id}`)}
+              {item.id === 'faq' && isDesktop 
+                ? t('navigation.faq_short')
+                : t(`navigation.${item.id}`)
+              }
             </a>
           );
         }
 
         return (
-          <a
+          <button
             key={item.id}
-            href="#" // Prevenir navegación por defecto
-            className={linkClasses}
-            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-              handleNavClick(e, item.routeId);
-              onItemClick?.();
+            type="button"
+            className={cn(linkClasses, 'border-0 bg-transparent text-left w-full')}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleItemClick(e, item);
             }}
           >
-            {t(`navigation.${item.id}`)}
-          </a>
+            {item.id === 'faq' && isDesktop 
+              ? t('navigation.faq_short')
+              : t(`navigation.${item.id}`)
+            }
+          </button>
         );
       })}
     </nav>

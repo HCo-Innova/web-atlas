@@ -4,70 +4,104 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class', // Habilitar estrategia de clase para theming
+  darkMode: 'class',
   theme: {
-    // Breakpoints optimizados para mobile-first
     screens: {
-      'xs': '375px',   // Móviles pequeños (iPhone SE, etc.)
-      'sm': '640px',   // Móviles grandes (iPhone 12, etc.)
-      'md': '768px',   // Tablets (iPad)
-      'lg': '1024px',  // Laptops pequeños
-      'xl': '1280px',  // Laptops grandes
-      '2xl': '1536px', // Desktops
-      '3xl': '1920px', // Pantallas grandes
+      'xs': '375px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+      '3xl': '1920px',
     },
     extend: {
       colors: {
-        // Paleta de colores semántica para ATLAS Agro
+        // Paleta de colores semántica para ATLAS Agro con escala completa
         primary: {
-          DEFAULT: '#4A7729', // Verde principal
-          dark: '#66BB6A',    // Verde claro para modo oscuro
+          50: '#f0f9f0',
+          100: '#d9f2d9',
+          200: '#b3e5b3',
+          300: '#8dd88d',
+          400: '#66BB6A',
+          500: '#4A7729', // Verde principal
+          600: '#3d6322',
+          700: '#305019',
+          800: '#223c12',
+          900: '#15280b',
+          DEFAULT: '#4A7729',
+          dark: '#66BB6A',
         },
         accent: {
-          DEFAULT: '#002F6C', // Azul principal
-          dark: '#42A5F5',    // Azul claro para modo oscuro
+          50: '#e8f4fd',
+          100: '#bee6fb',
+          200: '#7dd3f6',
+          300: '#42A5F5',
+          400: '#1e88e5',
+          500: '#002F6C', // Azul principal
+          600: '#002557',
+          700: '#001b41',
+          800: '#00122b',
+          900: '#000914',
+          DEFAULT: '#002F6C',
+          dark: '#42A5F5',
         },
         background: {
-          DEFAULT: '#F9FAFB', // Gris claro
-          dark: '#111827',    // Gris oscuro
+          DEFAULT: '#F3F4F6', // Gris más definido
+          dark: '#111827',
         },
         surface: {
-          DEFAULT: '#FFFFFF', // Blanco
-          dark: '#1F2937',    // Gris medio
+          DEFAULT: '#FFFFFF',
+          secondary: '#F9FAFB', // Superficie alternativa más suave
+          dark: '#1F2937',
         },
         'text-primary': {
-          DEFAULT: '#1A1A1A', // Negro suave
-          dark: '#F9FAFB',    // Gris claro
+          DEFAULT: '#111827', // Negro más fuerte
+          dark: '#F9FAFB',
         },
         'text-secondary': {
-          DEFAULT: '#4B5563', // Gris
-          dark: '#9CA3AF',    // Gris
+          DEFAULT: '#374151', // Gris más oscuro
+          dark: '#9CA3AF',
         },
         border: {
-          DEFAULT: '#E5E7EB', // Gris claro
-          dark: '#374151',    // Gris
+          DEFAULT: '#D1D5DB', // Borde más visible
+          light: '#E5E7EB', // Borde suave como opción
+          dark: '#374151',
         },
+        // Grises adicionales para mejor jerarquía visual
+        neutral: {
+          25: '#FDFDFD',  // Blanco cálido sutil
+          75: '#F6F7F8',  // Gris ultra claro  
+          150: '#EAECEF', // Intermedio claro
+          250: '#DDE1E6', // Intermedio medio
+          350: '#BFC4CC', // Intermedio para separadores
+          450: '#8B92A5', // Gris medio
+          550: '#5A6570', // Intermedio oscuro
+          650: '#3F4651', // Intermedio muy oscuro
+        },
+        
+        // Estados semánticos
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#3B82F6',
       },
       fontFamily: {
-        // Fuentes del sistema de diseño
-        'heading': ['Montserrat', 'sans-serif'],
-        'body': ['Inter', 'sans-serif'],
+        heading: ['Montserrat', 'system-ui', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        // Escala tipográfica fluida optimizada para mobile-first
-        'xs': ['0.75rem', { lineHeight: '1rem' }],
-        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
-        'base': ['1rem', { lineHeight: '1.5rem' }],
-        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
-        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        xs: ['0.75rem', { lineHeight: '1rem' }],
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],
+        base: ['1rem', { lineHeight: '1.5rem' }],
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],
         '2xl': ['1.5rem', { lineHeight: '2rem' }],
         '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
         '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
         '5xl': ['3rem', { lineHeight: '1' }],
         '6xl': ['3.75rem', { lineHeight: '1' }],
-        '7xl': ['4.5rem', { lineHeight: '1' }],
-        '8xl': ['6rem', { lineHeight: '1' }],
-        '9xl': ['8rem', { lineHeight: '1' }],
         // Tamaños específicos para mobile-first
         'hero-mobile': ['2rem', { lineHeight: '2.5rem' }],      // 32px
         'hero-tablet': ['3rem', { lineHeight: '3.5rem' }],      // 48px
@@ -77,10 +111,9 @@ export default {
         'section-desktop': ['2.5rem', { lineHeight: '3rem' }],  // 40px
       },
       spacing: {
-        // Escala de espaciado consistente (múltiplos de 4px)
-        '18': '4.5rem',
-        '88': '22rem',
-        '128': '32rem',
+        18: '4.5rem',
+        88: '22rem',
+        128: '32rem',
         // Espaciado específico para mobile-first
         'mobile-padding': '1rem',      // 16px - padding móvil
         'tablet-padding': '1.5rem',    // 24px - padding tablet
@@ -89,12 +122,15 @@ export default {
         'tablet-section': '4rem',      // 64px - sección tablet
         'desktop-section': '6rem',     // 96px - sección desktop
       },
-      gridTemplateColumns: {
-        // Grid de 12 columnas
-        '12': 'repeat(12, minmax(0, 1fr))',
-      },
       boxShadow: {
-        // Sombras sutiles para elevación
+        xs: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+        sm: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+        md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+        '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
+        inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
+        // Sombras específicas del sistema de diseño
         'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
         'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         'elevated': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',

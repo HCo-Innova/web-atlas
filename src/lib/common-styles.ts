@@ -1,148 +1,154 @@
-import { cn } from './design-system';
+/**
+ * ATLAS Agro - Sistema de estilos común
+ * Centraliza todas las clases Tailwind reutilizables siguiendo DRY
+ * Usando design-system unificado como fuente única de verdad
+ */
+
+import { cn, createComponentClasses } from './design-system';
 
 /**
- * Re-export cn utility for convenience
+ * Re-exportar cn utility para conveniencia
  */
 export { cn };
 
 /**
- * Estilos comunes reutilizables para aplicar DRY
- * Centraliza todas las clases repetitivas del sistema
+ * Estilos para navegación - optimizados y consistentes
  */
+export const navigationStyles = {
+  base: cn(
+    'relative px-2 py-1.5 text-sm font-medium transition-all duration-200',
+    'text-neutral-700 dark:text-neutral-300',
+    'hover:text-primary-500 dark:hover:text-primary-400',
+    'focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:ring-offset-2',
+    'focus:ring-offset-white dark:focus:ring-offset-neutral-900'
+  ),
+  
+  desktop: cn(
+    'rounded-md hover:bg-primary-50 dark:hover:bg-primary-900/20'
+  ),
+  
+  mobile: cn(
+    'rounded-lg px-4 py-3 text-base hover:bg-neutral-50 dark:hover:bg-neutral-800'
+  ),
+  
+  active: cn(
+    'text-primary-500 bg-primary-50 dark:text-primary-400 dark:bg-primary-900/20'
+  ),
+} as const;
 
-// Estilos base para botones interactivos
-export const interactiveButtonStyles = cn(
-  'rounded-lg transition-colors duration-200',
-  'text-text-secondary dark:text-text-secondary-dark',
-  'hover:text-primary dark:hover:text-primary-dark',
-  'hover:bg-surface/50 dark:hover:bg-surface-dark/50'
-);
+/**
+ * Estilos para botones interactivos
+ */
+export const interactiveStyles = {
+  button: cn(
+    'rounded-lg transition-colors duration-200',
+    'text-neutral-600 dark:text-neutral-400',
+    'hover:text-primary-500 dark:hover:text-primary-400',
+    'hover:bg-neutral-50 dark:hover:bg-neutral-800/50',
+    'focus:outline-none focus:ring-2 focus:ring-primary-500/20'
+  ),
+  
+  icon: cn(
+    'transition-transform duration-200 ease-out'
+  ),
+} as const;
 
-// Estilos base para enlaces de navegación
-export const navigationLinkStyles = cn(
-  'text-text-secondary dark:text-text-secondary-dark',
-  'hover:text-primary dark:hover:text-primary-dark',
-  'transition-colors duration-200 font-medium'
-);
+/**
+ * Estilos para contenedores - mobile-first
+ */
+export const containerStyles = {
+  main: cn(
+    'w-full max-w-7xl mx-auto',
+    'px-4 sm:px-6 lg:px-8'
+  ),
+  
+  section: cn(
+    'py-16 sm:py-20 lg:py-24'
+  ),
+  
+  content: cn(
+    'space-y-8 sm:space-y-12 lg:space-y-16'
+  ),
+} as const;
 
-// Estilos para enlaces móviles
-export const mobileLinkStyles = cn(
-  navigationLinkStyles,
-  'block px-3 py-2 rounded-lg hover:bg-surface/50 dark:hover:bg-surface-dark/50'
-);
+/**
+ * Estilos para dropdowns y menús
+ */
+export const dropdownStyles = {
+  container: cn(
+    'absolute right-0 mt-2 w-48',
+    'bg-white dark:bg-neutral-800',
+    'border border-neutral-200 dark:border-neutral-700',
+    'rounded-lg shadow-lg z-50',
+    'animate-in fade-in-0 zoom-in-95 duration-200'
+  ),
+  
+  item: cn(
+    'w-full flex items-center space-x-3 px-4 py-2 text-left text-sm',
+    'text-neutral-700 dark:text-neutral-300',
+    'hover:bg-neutral-50 dark:hover:bg-neutral-700',
+    'transition-colors duration-150',
+    'first:rounded-t-lg last:rounded-b-lg'
+  ),
+  
+  separator: cn(
+    'h-px bg-neutral-200 dark:bg-neutral-700 my-1'
+  ),
+} as const;
 
-// Estilos para dropdowns
-export const dropdownStyles = cn(
-  'absolute right-0 mt-2 w-48',
-  'bg-surface dark:bg-surface-dark',
-  'border border-border dark:border-border-dark',
-  'rounded-lg shadow-lg z-50'
-);
+/**
+ * Estilos para estados comunes
+ */
+export const stateStyles = {
+  loading: cn('animate-pulse'),
+  disabled: cn('opacity-50 cursor-not-allowed'),
+  active: cn('ring-2 ring-primary-500 ring-offset-2'),
+  focus: cn('focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2'),
+} as const;
 
-// Estilos para elementos de dropdown
-export const dropdownItemStyles = cn(
-  'w-full flex items-center space-x-3 px-4 py-2 text-left text-sm',
-  'transition-colors duration-200'
-);
+/**
+ * Estilos para grids responsive
+ */
+export const gridStyles = {
+  auto: cn('grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'),
+  two: cn('grid grid-cols-1 sm:grid-cols-2 gap-6'),
+  three: cn('grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'),
+  four: cn('grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'),
+} as const;
 
-// Estilos para elementos activos
-export const activeItemStyles = cn(
-  'bg-primary/10 text-primary dark:text-primary-dark'
-);
+/**
+ * Utilidades para crear clases de componentes usando el design system
+ */
+export const createButton = (variant = 'primary', size = 'md', customClasses?: string) => 
+  createComponentClasses('button', variant, size, customClasses);
 
-// Estilos para elementos inactivos
-export const inactiveItemStyles = cn(
-  'text-text-secondary dark:text-text-secondary-dark',
-  'hover:bg-surface/50 dark:hover:bg-surface-dark/50'
-);
+export const createCard = (variant = 'default', padding = 'md', customClasses?: string) => 
+  createComponentClasses('card', variant, padding, customClasses);
 
-// Estilos para iconos SVG
-export const iconStyles = {
-  small: 'w-4 h-4',
-  medium: 'w-5 h-5',
-  large: 'w-6 h-6',
-};
+export const createInput = (variant = 'default', size = 'md', customClasses?: string) => 
+  createComponentClasses('input', variant, size, customClasses);
 
-// Estilos para transiciones de iconos
-export const iconTransitionStyles = 'transition-transform duration-200';
+/**
+ * Backward compatibility exports
+ */
+export const interactiveButtonStyles = interactiveStyles.button;
+export const navigationLinkStyles = navigationStyles.base;
+export const mobileLinkStyles = cn(navigationStyles.base, navigationStyles.mobile);
+export const focusStyles = stateStyles.focus;
+export const disabledStyles = stateStyles.disabled;
 
-// Estilos para contenedores flex
-export const flexContainerStyles = {
-  center: 'flex items-center justify-center',
-  between: 'flex items-center justify-between',
-  start: 'flex items-center justify-start',
-  end: 'flex items-center justify-end',
-  column: 'flex flex-col items-center justify-center',
-};
-
-// Estilos para espaciado común
-export const spacingStyles = {
-  xs: 'space-x-1',
-  sm: 'space-x-2',
-  md: 'space-x-4',
-  lg: 'space-x-6',
-  xl: 'space-x-8',
-};
-
-// Estilos para padding común
-export const paddingStyles = {
-  xs: 'p-1',
-  sm: 'p-2',
-  md: 'p-3',
-  lg: 'p-4',
-  xl: 'p-6',
-};
-
-// Estilos para bordes comunes
-export const borderStyles = {
-  default: 'border border-border dark:border-border-dark',
-  top: 'border-t border-border dark:border-border-dark',
-  bottom: 'border-b border-border dark:border-border-dark',
-  left: 'border-l border-border dark:border-border-dark',
-  right: 'border-r border-border dark:border-border-dark',
-};
-
-// Estilos para sombras comunes
-export const shadowStyles = {
-  sm: 'shadow-sm',
-  md: 'shadow-md',
-  lg: 'shadow-lg',
-  xl: 'shadow-xl',
-};
-
-// Estilos para estados de focus
-export const focusStyles = cn(
-  'focus:outline-none focus:ring-2 focus:ring-primary/20',
-  'focus:ring-offset-2 focus:ring-offset-surface dark:focus:ring-offset-surface-dark'
-);
-
-// Estilos para estados disabled
-export const disabledStyles = cn(
-  'opacity-50 cursor-not-allowed',
-  'hover:opacity-50 hover:cursor-not-allowed'
-);
-
-// Utilidad para combinar estilos de estado
+/**
+ * Legacy function for state styles (mantenido para compatibilidad)
+ */
 export function getStateStyles(isActive: boolean, isDisabled: boolean = false) {
-  if (isDisabled) return disabledStyles;
-  if (isActive) return activeItemStyles;
-  return inactiveItemStyles;
+  if (isDisabled) return stateStyles.disabled;
+  if (isActive) return navigationStyles.active;
+  return navigationStyles.base;
 }
 
-// Utilidad para estilos de botón con variantes
-export function getButtonVariantStyles(variant: 'primary' | 'secondary' | 'text' | 'ghost') {
-  const baseStyles = 'px-3 py-2 rounded-lg font-medium transition-colors duration-200';
-  
-  switch (variant) {
-    case 'primary':
-      return cn(baseStyles, 'bg-primary text-white hover:bg-primary/90');
-    case 'secondary':
-      return cn(baseStyles, 'border border-primary text-primary hover:bg-primary/10');
-    case 'text':
-      return cn(baseStyles, 'text-primary hover:bg-primary/10');
-    case 'ghost':
-      return cn(baseStyles, 'hover:bg-surface/50 dark:hover:bg-surface-dark/50');
-    default:
-      return baseStyles;
-  }
+/**
+ * Legacy function for button variants (mantenido para compatibilidad)
+ */
+export function getButtonVariantStyles(variant: 'primary' | 'secondary' | 'outline' | 'ghost') {
+  return createButton(variant);
 }

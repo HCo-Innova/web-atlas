@@ -22,6 +22,8 @@
     "calidad": "Calidad",
     "proceso": "Proceso",
     "productos": "Productos",
+    "faq": "Preguntas Frecuentes",
+    "faq_short": "FAQ",
     "contacto": "Contacto"
   },
   "header": {
@@ -39,7 +41,7 @@
   "hero": {
     "title": "Líderes en Granos y Semillas: Del Campo al Mundo",
     "subtitle": "Nos especializamos en la producción, procesamiento y comercialización de chía y sésamo de alta calidad, impulsando el desarrollo de pequeños productores.",
-    "cta_button": "Descubre Nuestros Productos"
+    "cta_button": "Contáctanos Ahora"
   },
   "about": {
     "title": "Sobre Nosotros",
@@ -164,12 +166,35 @@
       "title": "Socio Certificador",
       "name": "CITEC",
       "description": "Colaboramos con CITEC para mantener nuestros estándares de certificación."
+    },
+    "sections": {
+      "analysis": "Análisis y Procesos",
+      "certifications": "Certificaciones"
+    },
+    "commitment": {
+      "title": "Compromiso con la Excelencia",
+      "description": "Nuestro compromiso con la calidad es inquebrantable. Cada producto que entregamos cumple con los más altos estándares internacionales, garantizando la satisfacción y confianza de nuestros clientes en todo el mundo."
     }
   },
   "contact": {
     "title": "Contacto",
     "description": "Ponte en contacto con nosotros para más información sobre nuestros productos y servicios.",
     "intro": "Estamos aquí para responder a sus preguntas. Contáctenos para conocer más sobre nuestros productos y oportunidades de negocio.",
+    "sections": {
+      "contact_info": "Información de Contacto",
+      "how_help": "¿Cómo podemos ayudarte?"
+    },
+    "help_card": {
+      "title": "Estamos aquí para ti",
+      "description": "¿Tienes preguntas sobre nuestros productos o servicios? No dudes en contactarnos. Nuestro equipo estará encantado de ayudarte.",
+      "send_email": "Enviar Email",
+      "call_now": "Llamar Ahora"
+    },
+    "labels": {
+      "email_principal": "Email Principal",
+      "email_alternativo": "Email Alternativo",
+      "telefono": "Teléfono"
+    },
     "contact_details": [
       { "type": "email", "value": "gfontanetti@gmail.com" },
       { "type": "email", "value": "giufonbo@gmail.com" },
@@ -188,8 +213,57 @@
     }
   },
   "footer": {
+    "title": "Líderes en Granos y Semillas de Calidad",
+    "subtitle": "Del campo al mundo, cultivando excelencia y sostenibilidad en cada grano que producimos.",
     "rights": "Todos los derechos reservados",
     "privacy": "Política de Privacidad",
-    "terms": "Términos de Uso"
+    "terms": "Términos de Uso",
+    "developed_by": "Desarrollado por"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a las preguntas más comunes sobre nuestros productos, servicios y procesos.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "¿A qué se dedica ATLAS Agro Industrial S.A.?",
+        "answer": "Nos dedicamos a la producción, procesamiento y comercialización de semillas y granos de alta calidad. También ofrecemos asesoramiento para el desarrollo de pequeños productores."
+      },
+      {
+        "id": 2,
+        "question": "¿Qué productos ofrecen?",
+        "answer": "Nuestros productos principales son la Chía y el Sésamo. Ambos están disponibles en variedades tanto orgánicas como convencionales para adaptarnos a las necesidades de nuestros clientes."
+      },
+      {
+        "id": 3,
+        "question": "¿Cómo aseguran la calidad de sus productos?",
+        "answer": "La calidad es fundamental para nosotros. Cumplimos con altos estándares de calidad y nuestros procesos se realizan en plantas certificadas. Realizamos análisis de laboratorio para garantizar que cada lote de producto cumpla con las especificaciones más exigentes antes del envío."
+      },
+      {
+        "id": 4,
+        "question": "¿Realizan envíos internacionales?",
+        "answer": "Sí. Como líderes en el mercado nacional e internacional, estamos equipados para exportar nuestros productos a diversos países. Para detalles específicos sobre logística y destinos, por favor contacte a nuestro equipo de ventas."
+      },
+      {
+        "id": 5,
+        "question": "¿Cómo puedo realizar un pedido o solicitar una cotización?",
+        "answer": "Para solicitar una cotización o iniciar un pedido, por favor envíe un correo electrónico a nuestro departamento de ventas a sales@atlasagroindustrial.com. Incluya el producto de interés, la cantidad deseada (en toneladas) y el puerto de destino para agilizar el proceso."
+      },
+      {
+        "id": 6,
+        "question": "¿Cuáles son las opciones de empaque?",
+        "answer": "Nuestro empaque estándar consiste en sacos de polipropileno de 25 kg, diseñados para preservar la calidad del producto. Sin embargo, somos flexibles y podemos evaluar otras opciones de empaque para satisfacer las necesidades específicas de nuestros clientes."
+      },
+      {
+        "id": 7,
+        "question": "Soy un pequeño productor, ¿cómo puedo saber más sobre sus programas de desarrollo?",
+        "answer": "Estamos comprometidos con el crecimiento de nuestros socios. Si usted es un pequeño productor interesado en nuestro programa de asesoramiento y desarrollo, por favor contáctenos a través de producers@atlasagroindustrial.com para recibir más información."
+      }
+    ],
+    "cta": {
+      "title": "¿No encontraste tu respuesta?",
+      "description": "Si tienes alguna pregunta específica que no está en nuestra lista, no dudes en contactarnos. Nuestro equipo estará encantado de ayudarte.",
+      "button": "Contactar Ahora"
+    }
   }
 }

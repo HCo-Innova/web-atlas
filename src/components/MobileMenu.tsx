@@ -10,6 +10,7 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose, className }: MobileMenuProps) {
+  
   useEffect(() => {
     if (isOpen) {
       const header = document.querySelector('header');
@@ -32,7 +33,7 @@ export function MobileMenu({ isOpen, onClose, className }: MobileMenuProps) {
         'md:hidden fixed z-50',
         'inset-x-0 w-full max-w-full',
         'min-h-[60px]',
-        'bg-surface dark:bg-surface-dark',
+        'bg-background dark:bg-background-dark',
         'border-t border-border dark:border-border-dark',
         'shadow-lg transition-all duration-200 ease-in-out overflow-hidden',
         '[top:var(--mobile-menu-top,64px)]',
@@ -40,7 +41,7 @@ export function MobileMenu({ isOpen, onClose, className }: MobileMenuProps) {
       )}
       data-mobile-menu
     >
-      <div className="bg-surface dark:bg-surface-dark p-4 min-h-[50px] text-text-primary dark:text-text-primary-dark">
+      <div className="bg-background dark:bg-background-dark p-4 min-h-[50px] text-text-primary dark:text-text-primary-dark">
         <Navigation 
           variant="mobile" 
           onItemClick={onClose}

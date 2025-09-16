@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useURLManager } from './useURLManager';
+import { useScrollToSection } from './useScrollToSection';
 import { routeUtils } from '../lib/seoRoutes';
 
 type NavClickEvent = {
@@ -13,44 +14,39 @@ export interface UseNavigationReturn {
   scrollToSection: (sectionId: string) => void;
 }
 
+// Navigation logger disabled for production
+
 /**
- * Hook profesional para navegación SEO con URLs traducidas y scroll suave
+ * ATLAS Agro - Hook de navegación con LOGGING EXTENSIVO
  */
 export function useNavigation(): UseNavigationReturn {
   const { i18n } = useTranslation();
-  const { navigateToRoute: urlNavigateToRoute, initializeURL } = useURLManager();
+  const { initializeURL } = useURLManager();
+  const { scrollToSection: scrollToSectionOptimized } = useScrollToSection();
 
   const scrollToSection = useCallback((sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  }, []);
+    scrollToSectionOptimized(sectionId, { behavior: 'smooth' });
+  }, [scrollToSectionOptimized]);
 
   const navigateToRoute = useCallback((routeId: string) => {
     const currentLanguage = (i18n.language as 'es' | 'en') || 'es';
     
-    // Actualizar URL
-    urlNavigateToRoute(routeId, currentLanguage);
+    // Convertir route a section según idioma actual
+    const sectionId = routeUtils.getSectionId(routeId, currentLanguage);
     
-    // Hacer scroll a la sección
-    const sectionId = routeUtils.getSectionId(routeId);
+    // Hacer scroll directo a la sección
     scrollToSection(sectionId);
-  }, [i18n.language, urlNavigateToRoute, scrollToSection]);
+  }, [i18n.language, scrollToSection]);
 
   const handleNavClick = useCallback((event: NavClickEvent, routeId: string) => {
     event.preventDefault();
     navigateToRoute(routeId);
   }, [navigateToRoute]);
 
-  // Inicializar URLs correctas al cargar
+  // Inicializar URLs al cargar
   useEffect(() => {
     const { language } = initializeURL();
     
-    // Sincronizar idioma de i18n con URL
     if (i18n.language !== language) {
       i18n.changeLanguage(language);
     }
