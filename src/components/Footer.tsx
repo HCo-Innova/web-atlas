@@ -2,7 +2,7 @@ import { cn } from '../lib/design-system';
 import { useTheme } from '../hooks/useTheme';
 import { THEMES } from '../lib/constants';
 import { useTranslation } from 'react-i18next';
-import AtlasLogo from '../assets/Atlas-logo.png';
+import AtlasLogo from '../assets/Atlas-Logo.png';
 
 interface FooterProps {
   className?: string;
